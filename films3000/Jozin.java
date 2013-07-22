@@ -1,7 +1,6 @@
 package films3000;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -12,15 +11,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import mediainfo.InfosLocales;
+
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.model.MovieDb;
-
 import composants.fichiers.FichierFilm;
 import composants.fichiers.FichierFilmIncomplet;
-import composants.fichiers.Stream;
 import composants.films.Film;
-import mediainfo.InfosLocales;
 
 public class Jozin {
 

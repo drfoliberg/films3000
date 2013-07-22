@@ -22,6 +22,10 @@ import thread.AnalyseFichiers;
 
 public class TraitementEnCours extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 781621681860700659L;
 	private JPanel contentPane;
 	private JLabel lblTraitementEnCours;
 	private JLabel lblRacineCourante;

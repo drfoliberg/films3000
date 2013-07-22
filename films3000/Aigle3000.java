@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
-
 import composants.fichiers.Fichier;
 
 public class Aigle3000 {
