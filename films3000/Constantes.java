@@ -4,6 +4,7 @@ public class Constantes {
 	public static final int ANNEE_MININMALE = 1896;
 	public static final String NON_DISPONIBLE = "N/D";
 	public static final long TAILLE_MIN_FILM = 500000000;
+	public static final String LANGUE_DEFAUT = "en";
 	
 	public static final String [] JOBS_WRITING = {"Screenplay","Story","Storyboard","Author","Novel","Characters","Theatre Play","Adaptation","Dialogue","Writer"};
 	public static final String [] JOBS_DIRECTING = {"Director","Special Guest Director"};
