@@ -1,9 +1,15 @@
 package ui.tests;
 
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
-import javax.swing.JPanel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -11,15 +17,6 @@ import javax.swing.event.ListSelectionListener;
 import composants.films.Film;
 
 import films3000.Jozin;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 public class ListeFilms extends JPanel {
 	/**
@@ -29,12 +26,14 @@ public class ListeFilms extends JPanel {
 	private JList<Film> list;
 	private JPanel panel;
 	private JScrollPane scrollPane_1;
+	private ModeleFilms modele;
 
 	/**
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
-	public ListeFilms(Jozin jozin) throws SQLException {
+	public ListeFilms(Jozin jozin, final ModeleFilms modele) throws SQLException {
+		this.modele = modele;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {150, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
@@ -60,22 +59,7 @@ public class ListeFilms extends JPanel {
 		
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
 		      public void valueChanged(ListSelectionEvent listSelectionEvent) {
-		        System.out.print("First index: " + listSelectionEvent.getFirstIndex());
-		        System.out.print(", Last index: " + listSelectionEvent.getLastIndex());
-		        boolean adjust = listSelectionEvent.getValueIsAdjusting();
-		        System.out.println(", Adjusting? " + adjust);
-		        if (!adjust) {
-		          JList list = (JList) listSelectionEvent.getSource();
-		          int selections[] = list.getSelectedIndices();
-		          Object selectionValues[] = list.getSelectedValues();
-		          for (int i = 0, n = selections.length; i < n; i++) {
-		            if (i == 0) {
-		              System.out.print("  Selections: ");
-		            }
-		            System.out.print(selections[i] + "/" + selectionValues[i] + " ");
-		          }
-		          System.out.println();
-		        }
+		        modele.fireFilmChange(list.getSelectedValue());
 		      }
 		    };
 		    list.addListSelectionListener(listSelectionListener);

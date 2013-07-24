@@ -15,18 +15,14 @@ public class Renomeur {
 	boolean estFic;
 	String titre;
 	String date;
-	String qualite;
 	String ext;
 	String nomFinal;
 	Pattern p;
 	Matcher m;
 	private boolean dateTrouve;
-	private boolean qualiteTrouve;
 	int indexDate;
 	int indexQualite;
 	boolean changement;
-	Pattern pQualiteC = Pattern.compile("\\[[0-9]{3,4}p\\]");
-	Pattern pQualiteD = Pattern.compile("\\.?[0-9]{3,4}p");
 	Pattern pDateC = Pattern.compile("\\[[0-9]{4}\\]");
 	Pattern pDateD = Pattern.compile("\\.[0-9]{4}\\.");
 	
@@ -37,7 +33,6 @@ public class Renomeur {
 		this.nomFinal = this.origine;
 		this.estFic = fic.isFile();
 		trouverParams();
-
 	}
 	
 	public String getNomFic(){
@@ -63,7 +58,6 @@ public class Renomeur {
 			trouverExt();
 		}
 		nettoyerEspaces();
-		trouverQualite();
 		trouverDate();
 		trouverTitre();
 	}
@@ -73,25 +67,7 @@ public class Renomeur {
 		this.origine = this.origine.replace("(", "[");
 		this.origine = this.origine.replace(")", "]");
 	}
-	private void trouverQualite() {
-		p = pQualiteC;
-		//p = Pattern.compile("\\[[0-9]{3,4}p\\]");
-		m = p.matcher(this.origine);
-		if (m.find()){
-			this.qualiteTrouve = true;
-			this.qualite = this.origine.substring(m.start(), m.end());
-			this.indexQualite = m.start();
-		}else{
-			p = pQualiteD;
-			//p = Pattern.compile("\\.?[0-9]{3,4}p");
-			m = p.matcher(this.origine);
-			if (m.find()){
-				this.qualiteTrouve = true;
-				this.qualite = ("[" + this.origine.substring(m.start(), m.end()) + "]" ).replace(".", "");
-				this.indexQualite = m.start();
-			}
-		}
-	}
+
 	private void trouverDate() {
 		p = pDateC;
 		//p = Pattern.compile("\\[[0-9]{4}\\]"); // [2001]
@@ -115,21 +91,27 @@ public class Renomeur {
 	}
 	
 	private void trouverTitre() {
-		if (dateTrouve){
+		if (dateTrouve) {
 			this.titre = origine.substring(0, indexDate);
-		}else if (qualiteTrouve){
-			this.titre = origine.substring(0, indexQualite);
-		}else if (estFic){
+		} else if (estFic) {
 			this.titre = origine.substring(0, origine.length() - ext.length());
-		}else{
+		} else {
 			this.titre = origine;
 		}
-		if (this.titre.endsWith(".")){
-			this.titre = titre.substring(0, titre.length() -1);
+		if (this.titre.endsWith(".")) {
+			this.titre = titre.substring(0, titre.length() - 1);
 		}
 	}
+
 	private void trouverExt() {
 		this.ext = this.origine.substring(this.origine.lastIndexOf('.'));
-		
+	}
+
+	public boolean dateEstValide() {
+		boolean valide = false;
+		if (dateTrouve && getAnnee() >= 1896) {
+			valide = true;
+		}
+		return valide;
 	}
 }

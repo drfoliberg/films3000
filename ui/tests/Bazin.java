@@ -10,11 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.EventListenerList;
+
+import composants.films.Film;
 
 import films3000.Jozin;
 
-public class Bazin extends JFrame implements FilmListener {
+public class Bazin extends JFrame {
 
 	/**
 	 * 
@@ -25,13 +26,23 @@ public class Bazin extends JFrame implements FilmListener {
 	private JSplitPane splitPane;
 	private JPanel panel_1;
 	private JLabel lblNewLabel;
-	private final EventListenerList listeners = new EventListenerList();
+
 
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
 	public Bazin(Jozin jozin) throws SQLException {
+		ModeleFilms modele = new ModeleFilms(jozin);
+		FilmListener listener = new FilmListener() {
+			
+			@Override
+			public void filmSelectionneChange(Film film) {
+				afficherFilm(film);
+			}
+		};
+		modele.addFilmListener(listener);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 892, 585);
 		contentPane = new JPanel();
@@ -51,7 +62,7 @@ public class Bazin extends JFrame implements FilmListener {
 		gbc_splitPane.gridy = 0;
 		contentPane.add(splitPane, gbc_splitPane);
 		
-		panelListeFilms = new ListeFilms(jozin);
+		panelListeFilms = new ListeFilms(jozin, modele);
 		splitPane.setLeftComponent(panelListeFilms);
 		
 		panel_1 = new JPanel();
@@ -71,18 +82,12 @@ public class Bazin extends JFrame implements FilmListener {
 		gbc_lblNewLabel.gridy = 0;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 		splitPane.setDividerLocation(250);
-	}
-
-	@Override
-	public void filmSelectionneChange(int nouvelId) {
-		afficherFilm( nouvelId);
 		
 	}
 
-	private void afficherFilm(int nouvelId) {
-		
-		
+	public void afficherFilm(Film film) {
+		System.out.println(film.getResume());
 		
 	}
-
+	
 }

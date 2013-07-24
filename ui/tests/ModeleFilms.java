@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.AbstractListModel;
+import javax.swing.event.EventListenerList;
 
 import composants.films.Film;
 
@@ -13,6 +14,8 @@ public class ModeleFilms extends AbstractListModel<Film> {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Film> donnees;
+	private final EventListenerList listeners = new EventListenerList();
+	private Film film;
 
 	public ModeleFilms(Jozin jozin) throws SQLException {
 		donnees = initialiserFilms(jozin);
@@ -33,6 +36,33 @@ public class ModeleFilms extends AbstractListModel<Film> {
 	public int getSize() {
 		// TODO Auto-generated method stub
 		return donnees.size();
+	}
+	
+	public Film getFilm() {
+		return this.film;
+	}
+
+	public void setId(Film film) {
+		this.film = film;
+		fireFilmChange(film);
+	}
+
+	public FilmListener[] getFilmListeners() {
+		return listeners.getListeners(FilmListener.class);
+	}
+	
+    public void addFilmListener(FilmListener listener) {
+        listeners.add(FilmListener.class, listener);
+    }
+
+	protected void fireFilmChange(Film film) {
+		FilmEvent event = null;
+		for (FilmListener listener : getFilmListeners()) {
+			if(event==null){
+				event = new FilmEvent(film);
+			}
+			listener.filmSelectionneChange(film);
+		}
 	}
 	
 

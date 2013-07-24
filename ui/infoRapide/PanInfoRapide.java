@@ -1,14 +1,13 @@
 package ui.infoRapide;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class PanInfoRapide extends JPanel {
 	private JPanel panel;

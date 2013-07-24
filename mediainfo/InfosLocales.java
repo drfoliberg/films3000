@@ -3,11 +3,13 @@ package mediainfo;
 import java.util.ArrayList;
 
 import mediainfo.MediaInfo.StreamKind;
+
 import composants.fichiers.FichierFilm;
 import composants.fichiers.Stream;
 import composants.fichiers.StreamAudio;
 import composants.fichiers.StreamTexte;
 import composants.fichiers.StreamVideo;
+
 import films3000.Constantes;
 
 public class InfosLocales {

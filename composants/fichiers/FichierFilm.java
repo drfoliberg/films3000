@@ -1,7 +1,6 @@
 package composants.fichiers;
 
 import java.io.File;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,10 +33,11 @@ public class FichierFilm {
     	nomFichier = fichier.getPath().replaceAll("\\\\","/");
     }
     
-    public void analyserTitreDate(){
+    public boolean analyserTitreDate(){
     	Renomeur r = new Renomeur(fichierDisque);
     	titre = r.getTitre();
     	annee = r.getAnnee();
+    	return r.dateEstValide();
     }
     
     public void setStreams(ArrayList<Stream> streams){
@@ -95,4 +95,12 @@ public class FichierFilm {
 	public int getId_fichier() {
 		return id_fichier;
 	}
+	
+	
+	public String getTitre(){
+		return this.titre;
+	}
+	
+	
+	
 }

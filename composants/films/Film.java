@@ -15,13 +15,14 @@ import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.model.Artwork;
 import com.omertron.themoviedbapi.model.ArtworkType;
-import com.omertron.themoviedbapi.model.MovieDb;
 import com.omertron.themoviedbapi.model.Genre;
+import com.omertron.themoviedbapi.model.MovieDb;
 import com.omertron.themoviedbapi.model.Person;
 import com.omertron.themoviedbapi.model.ProductionCountry;
+import composants.images.Affiche;
+import composants.images.Fond;
 
 import films3000.Constantes;
-import composants.images.*;
 
 /**
  *
@@ -52,7 +53,14 @@ public class Film {
 		this.annee = getAnnee(recherche.getReleaseDate());
 		this.affiche = recherche.getPosterPath();
 		this.idTmdb = recherche.getId();
-		
+	}
+	
+	public Film(ResultSet resultat) throws SQLException{
+		this.idTmdb = resultat.getInt("tmdb_id");
+		this.annee = resultat.getInt("annee");
+		this.titre = resultat.getString("titre");
+		this.titreOrignal = resultat.getString("titre_original");
+		this.resume =resultat.getString("resume");
 	}
 	
 	public Film(String titre, int annee){

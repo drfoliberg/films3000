@@ -30,6 +30,10 @@ public class Personne {
 	boolean conserver;
 	
 
+	public Personne(int id){
+		this.id = id;
+	}
+	
 	public Personne(Person infoPersonne){
 		this.id = infoPersonne.getId();
 	}
@@ -48,7 +52,6 @@ public class Personne {
 			image = Constantes.NON_DISPONIBLE;
 		}
 	}
-
 	
 	public void setInfosFilm(Person infoFilm) {
 		special = "";
@@ -187,6 +190,13 @@ public class Personne {
 	public int getId() {
 		return id;
 	}
+	
+	
+	
+
+	public boolean isConserver() {
+		return conserver;
+	}
 
 	public String getJob() {
 		return job;
@@ -219,4 +229,45 @@ public class Personne {
 	public int getDepartement() {
 		return departement;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public void setMort(String mort) {
+		this.mort = mort;
+	}
+
+	public void setNaissance(String naissance) {
+		this.naissance = naissance;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public void setSpecial(String special) {
+		this.special = special;
+	}
+
+	public void setDepartement(int departement) {
+		this.departement = departement;
+	}
+
+	public void setConserver(boolean conserver) {
+		this.conserver = conserver;
+	}
+	
 }

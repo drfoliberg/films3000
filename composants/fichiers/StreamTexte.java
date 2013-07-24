@@ -5,9 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import films3000.Constantes;
 import mediainfo.MediaInfo;
 import mediainfo.MediaInfo.StreamKind;
+import films3000.Constantes;
 
 /**
  *

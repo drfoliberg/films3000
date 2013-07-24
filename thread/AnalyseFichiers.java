@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.omertron.themoviedbapi.MovieDbException;
-
 import composants.fichiers.FichierFilm;
 import composants.fichiers.FichierFilmIncomplet;
 import composants.films.Film;
+
 import films3000.Aigle3000;
 import films3000.Jozin;
 import films3000.TraitementEnCours;
