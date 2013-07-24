@@ -15,25 +15,26 @@ import films3000.Departements;
 
 public class Personne {
 
-	// Commun
+	//Commun
 	int id;
 	String nom;
-	// Base
+	//Base
 	String mort;
 	String naissance;
 	String image;
 	String bio;
-	// Film
+	//Film
 	String job;
 	String special;
 	int departement;
 	boolean conserver;
+	
 
-	public Personne(int id) {
+	public Personne(int id){
 		this.id = id;
 	}
-
-	public Personne(Person infoPersonne) {
+	
+	public Personne(Person infoPersonne){
 		this.id = infoPersonne.getId();
 	}
 
@@ -46,9 +47,12 @@ public class Personne {
 		if (bio == null) {
 			bio = Constantes.NON_DISPONIBLE;
 		}
-
+		image = infoBase.getProfilePath();
+		if(image==null){
+			image = Constantes.NON_DISPONIBLE;
+		}
 	}
-
+	
 	public void setInfosFilm(Person infoFilm) {
 		special = "";
 		conserver = false;
@@ -57,7 +61,7 @@ public class Personne {
 		switch (infoFilm.getDepartment()) {
 		case ("acting"):
 			departement = 2;
-			conserver = true;
+			conserver =true;
 			job = infoFilm.getCharacter();
 			if (!infoFilm.getJob().equals("actor")) {
 				special = infoFilm.getJob();
@@ -65,123 +69,116 @@ public class Personne {
 			break;
 		case ("Writing"):
 			departement = Departements.WRITING.getNoDep();
-			if (Departements.WRITING.getJobsConserver().contains(job)) {
+			if(Departements.WRITING.getJobsConserver().contains(job)){
 				job = infoFilm.getJob();
 				conserver = true;
 			}
 			break;
 		case ("Directing"):
 			departement = Departements.DIRECTING.getNoDep();
-			if (Departements.DIRECTING.getJobsConserver().contains(job)) {
+			if(Departements.DIRECTING.getJobsConserver().contains(job)){
 				job = infoFilm.getJob();
 				conserver = true;
 			}
 			break;
 		case ("Camera"):
 			departement = Departements.CAMERA.getNoDep();
-			if (Departements.CAMERA.getJobsConserver().contains(job)) {
+			if(Departements.CAMERA.getJobsConserver().contains(job)){
 				job = infoFilm.getJob();
 				conserver = true;
 			}
 			break;
 		case ("Editing"):
 			departement = Departements.EDITING.getNoDep();
-			if (Departements.EDITING.getJobsConserver().contains(job)) {
+			if(Departements.EDITING.getJobsConserver().contains(job)){
 				job = infoFilm.getJob();
 				conserver = true;
 			}
 			break;
 		case ("Production"):
 			departement = Departements.PRODUCTION.getNoDep();
-			if (Departements.PRODUCTION.getJobsConserver().contains(job)) {
+			if(Departements.PRODUCTION.getJobsConserver().contains(job)){
 				job = infoFilm.getJob();
 				conserver = true;
 			}
 			break;
 		case ("Sound"):
 			departement = Departements.SOUND.getNoDep();
-			if (Departements.SOUND.getJobsConserver().contains(job)) {
+			if(Departements.SOUND.getJobsConserver().contains(job)){
 				job = infoFilm.getJob();
 				conserver = true;
 			}
 			break;
 		}
-		if (job == null) {
+		if(job==null){
 			job = Constantes.NON_DISPONIBLE;
 		}
 	}
+	
 
 	/**
-	 * Méthode qui insère la personne courante pour un film. La méthode se
-	 * charge dappeler la recherche et linsertion de la personne de base si elle
-	 * nexiste pas.
+	 * Méthode qui insère la personne courante pour un film. La méthode se charge dappeler 
+	 * la recherche et linsertion de la personne de base si elle nexiste pas.
 	 * 
-	 * @param idFilm
-	 *            Le film duquel la personne fait partie
-	 * @param api
-	 *            Lapi qui pourrait être utilisé pour la recherche dinformations
-	 *            de base si
-	 * @param con
-	 *            la connection sql déjà ouverte
+	 * @param idFilm Le film duquel la personne fait partie
+	 * @param api Lapi qui pourrait être utilisé pour la recherche dinformations de base si 
+	 * @param con la connection sql déjà ouverte
 	 * @return sil y a eu une erreur
 	 * 
 	 * @throws MovieDbException
-	 * @throws SQLException
+	 * @throws SQLException 
 	 */
-	public boolean insererPersonneFilm(int idFilm, TheMovieDbApi api, Connection con) throws MovieDbException,
-			SQLException {
+	public boolean insererPersonneFilm(int idFilm, TheMovieDbApi api, Connection con) throws MovieDbException, SQLException{
 		boolean erreur = false;
-
-		if (conserver && !jointureExiste(con, idFilm)) {
-
-			if (!baseExiste(con)) {
+		
+		if(conserver && !jointureExiste(con, idFilm)){
+			
+			if(!baseExiste(con)){
 				Personne pBase = new Personne(api.getPersonInfo(id));
 				pBase.setInfosBase(api);
 				pBase.insererInfosBase(con);
-				// System.out.println(nom + " de base insérée!");
+				//System.out.println(nom + " de base insérée!");
 			}
-
-			String sql = "Insert into Personnes_films (Personnes_id, films_tmdb_id,special,job,departement) "
-					+ "values(?,?,?,?,?)";
+			
+			String sql = "Insert into Personnes_films (Personnes_id, films_tmdb_id,special,job,departement) " +
+					"values(?,?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.setInt(2, idFilm);
-			stmt.setString(3, special);
+			stmt.setString(3,special);
 			stmt.setString(4, job);
 			stmt.setInt(5, departement);
 			erreur = stmt.execute();
-			// System.out.println(nom + " de " + job + "inséré!");
-		}
+			//System.out.println(nom + " de " + job + "inséré!");
+			}
 		return erreur;
 	}
 
 	/**
-	 * Méthode qui se charge de linsertion dune personne de base. Cet
-	 * enregistrement contient les informations tels que la bio et limage de la
-	 * personne.
-	 * 
+	 * Méthode qui se charge de linsertion dune personne de base. Cet enregistrement contient les
+	 * informations tels que la bio et limage de la personne.
 	 * @param con
 	 * @return
-	 * @throws SQLException
+	 * @throws SQLException 
 	 */
-	public boolean insererInfosBase(Connection con) throws SQLException {
-		Profil profil = new Profil(image, id);
+	public boolean insererInfosBase(Connection con) throws SQLException{
+		Profil profil =new Profil(image, id);
 		profil.inserer(con);
-
+		
 		PreparedStatement stmt = con.prepareStatement("Insert into personnes (id,nom,biographie) Values (?, ?, ?)");
 		stmt.setInt(1, id);
 		stmt.setString(2, nom);
 		stmt.setString(3, bio);
 		return stmt.execute();
 	}
-
-	private boolean baseExiste(Connection con) throws SQLException {
+	
+	private boolean baseExiste(Connection con) throws SQLException{
 		String sql = "Select id  from personnes where id = " + id;
 		ResultSet r = con.prepareStatement(sql).executeQuery();
 		return r.first();
 	}
-
-	private boolean jointureExiste(Connection con, int idJointure) throws SQLException {
+	
+	private boolean jointureExiste(Connection con, int idJointure) throws SQLException{
 		String sql = "Select Personnes_id from Personnes_films where Personnes_id = ? and films_tmdb_id = ? and job = ?";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setInt(1, id);
@@ -189,10 +186,13 @@ public class Personne {
 		stmt.setString(3, job);
 		return stmt.executeQuery().first();
 	}
-
+	
 	public int getId() {
 		return id;
 	}
+	
+	
+	
 
 	public boolean isConserver() {
 		return conserver;
@@ -269,5 +269,5 @@ public class Personne {
 	public void setConserver(boolean conserver) {
 		this.conserver = conserver;
 	}
-
+	
 }

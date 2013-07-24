@@ -5,9 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import mediainfo.MediaInfo;
+import mediainfo.MediaInfo.StreamKind;
 import films3000.Constantes;
-import gestionDonnees.scrappers.local.mediainfo.MediaInfo;
-import gestionDonnees.scrappers.local.mediainfo.MediaInfo.StreamKind;
 
 /**
  *

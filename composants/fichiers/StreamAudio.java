@@ -1,13 +1,12 @@
 
 package composants.fichiers;
 
-import gestionDonnees.scrappers.local.mediainfo.MediaInfo;
-import gestionDonnees.scrappers.local.mediainfo.MediaInfo.StreamKind;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import mediainfo.MediaInfo;
+import mediainfo.MediaInfo.StreamKind;
 
 /**
  * 
