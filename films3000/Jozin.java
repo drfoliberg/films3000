@@ -1,5 +1,8 @@
 package films3000;
 
+import gestionDonnees.scrappers.local.mediainfo.MediaInfoAnalyse;
+import gestionDonnees.scrappers.web.Tmdb;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,8 +12,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import mediainfo.InfosLocales;
-import scrapper.SourceWeb;
 
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.model.MovieDb;
@@ -21,8 +22,8 @@ import composants.films.Film;
 public class Jozin {
 
 	String clefApi = "";
-	InfosLocales info;
-	SourceWeb api;
+	MediaInfoAnalyse info;
+	Tmdb api;
 	String langue;
 	final String [] languesSupportees = {"fr","en"};
 	Connection con;
@@ -32,7 +33,7 @@ public class Jozin {
 	
 	public Jozin(Config config) throws IOException {
 		con  = OutilsBD.getCon("h2", "films3000");
-		info = new InfosLocales();
+		info = new MediaInfoAnalyse();
 	}
 
 	public void close(){

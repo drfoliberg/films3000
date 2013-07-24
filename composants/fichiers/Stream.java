@@ -1,10 +1,11 @@
 
 package composants.fichiers;
 
+import gestionDonnees.scrappers.local.mediainfo.MediaInfo.StreamKind;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import mediainfo.MediaInfo.StreamKind;
 
 /**
  *
