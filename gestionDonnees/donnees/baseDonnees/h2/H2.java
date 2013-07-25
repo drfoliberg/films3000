@@ -1,222 +1,102 @@
 package gestionDonnees.donnees.baseDonnees.h2;
 
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-
-import composants.films.Duree;
-import composants.films.Film;
-import composants.films.GenreFilm;
-import composants.films.Pays;
-import composants.films.Personne;
-import composants.images.Affiche;
-import composants.images.Fond;
-import composants.images.Image;
 
 import gestionDonnees.donnees.baseDonnees.BaseDonnees;
 
-public class H2 implements BaseDonnees {
+public class H2 extends BaseDonnees {
+
+	private String nom;
+	private String url;
+	private Connection connection;
+	//private ModeleBd modele;
 
 	@Override
 	public boolean open() {
-		// TODO Auto-generated method stub
+		try {
+			connection = DriverManager.getConnection("jdbc:h2:" + nom, "sa", "");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean close() {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			connection.close();
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+
 	}
 
 	@Override
 	public String getNom() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nom;
 	}
 
 	@Override
 	public String getUrl() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.url;
 	}
 
 	@Override
-	public void setNom() {
-		// TODO Auto-generated method stub
-		
+	public void setNom(String nom) {
+		this.nom = nom;
+
 	}
 
 	@Override
-	public void setUrl() {
-		// TODO Auto-generated method stub
-		
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override
-	public Film getFilmBase(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Film getFilmComplet(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Film> getToutFilms() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean tablesExistent() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean tablesValides() {
+		boolean existe = false;
+		ArrayList<String> tables =  new ArrayList<>();
+		try {
+			java.sql.PreparedStatement stmt = connection.prepareStatement("SELECT TABLE_NAME FROM " +
+					"INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PUBLIC' ORDER BY TABLE_NAME");
+			ResultSet resultats = stmt.executeQuery();
+			while (resultats.next()) {
+				tables.add(resultats.getString("table_name"));
+			}
+			resultats.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return existe;
 	}
 
 	@Override
 	public void mettreEnPlaceTables() {
 		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void insererFilm(Film film) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insererPersonne(Personne personne) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insererGenre(GenreFilm genre) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insererDuree(Duree duree) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insererPays(Pays pays) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<Duree> getDurees(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Affiche> getAffichesFilm(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Fond> getFondsFilm(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Personne> getPersonnesFilm(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Personne getPersonneBase(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public boolean baseDonneesExiste() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean fichierExiste = true;
+		if (!new File(nom + ".h2.db").exists()) {
+			fichierExiste = false;
+		}
+		return fichierExiste;
 	}
 
 	@Override
 	public void creerBaseDonnees() {
-		// TODO Auto-generated method stub
-		
-	}
+		mettreEnPlaceTables();
 
-	@Override
-	public boolean idPersonneExiste(int idPersonne) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean idFilmExiste(int idFilm) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean idgenreExiste(int idGenre) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isoPaysExiste(String iso) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void supprimerDuree(int idTmdbFilm, int idVersion) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimerFilm(Film film) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimerImage(Image image) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimerPersonne(Personne personne) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimerDuree(Duree duree) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void supprimerGenre(GenreFilm genre) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insererImage(Image image) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
