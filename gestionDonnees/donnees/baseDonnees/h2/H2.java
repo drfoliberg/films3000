@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import gestionDonnees.donnees.baseDonnees.BaseDonnees;
+import gestionDonnees.donnees.baseDonnees.structure.Colonne;
+import gestionDonnees.donnees.baseDonnees.structure.Structure;
+import gestionDonnees.donnees.baseDonnees.structure.Table;
 
 public class H2 extends BaseDonnees {
 
@@ -77,11 +80,24 @@ public class H2 extends BaseDonnees {
 		}
 		return existe;
 	}
+	
+	private boolean colonneValide(String colonne){
+		
+		return false;
+	}
 
 	@Override
 	public void mettreEnPlaceTables() {
-		// TODO Auto-generated method stub
 
+		String [] tables =  {"personnes","pays","genres","films","fichiers"};
+		Table table = new Table(tables[0]);
+		Colonne [] colonnes = {
+				new Colonne("id", "int", new String [] {"UNSIGNED", "NOT NULL", "AUTO_INCREMENT", "PRIMARY"}),
+				new Colonne("nom", "text", new String []{"NULL"}),
+				new Colonne("biographie", "text", new String [] {"NULL"})
+		};
+		table.ajouterColonnes(colonnes);
+		System.out.println(table.getSql());
 	}
 
 	@Override

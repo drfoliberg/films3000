@@ -7,9 +7,9 @@ public class test {
 	 */
 	public static void main(String[] args) {
 		H2 h2 = new H2();
-		h2.setNom("films3000");
-		h2.open();
-		System.out.println(h2.tablesValides());
+//		h2.setNom("films3000");
+//		h2.open();
+		h2.creerBaseDonnees();
 
 	}
 

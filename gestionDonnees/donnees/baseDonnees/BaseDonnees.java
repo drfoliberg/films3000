@@ -15,6 +15,7 @@ import composants.images.Image;
 
 import gestionDonnees.donnees.GestionFichiersFilm;
 import gestionDonnees.donnees.GestionFilm;
+import gestionDonnees.donnees.baseDonnees.structure.Structure;
 
 public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm{
 
