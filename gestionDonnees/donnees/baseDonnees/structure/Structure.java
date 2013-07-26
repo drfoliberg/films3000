@@ -5,13 +5,21 @@ import java.util.ArrayList;
 public class Structure {
 
 	private ArrayList<Table> tables;
-	
-	public String getSql(){
+
+	public Structure() {
+		tables = new ArrayList<>();
+	}
+
+	public void ajouterTable(Table table) {
+		this.tables.add(table);
+	}
+
+	public String getSql() {
 		StringBuilder sql = new StringBuilder();
-		for (Table  table : tables) {
+		for (Table table : tables) {
 			sql.append(table.getSql());
 		}
-		
+
 		return sql.toString();
 	}
 }

@@ -1,7 +1,5 @@
 package gestionDonnees.donnees.baseDonnees.structure;
 
-import com.mysql.jdbc.PreparedStatement;
-
 public class Colonne {
 	String nom;
 	String type;
@@ -17,7 +15,7 @@ public class Colonne {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" " + nom + " " + type);
 		for (int i = 0; i < proprietes.length; i++) {
-			sql.append(" "+proprietes[i]);
+			sql.append(" " + proprietes[i]);
 		}
 		sql.append(",");
 		return sql;

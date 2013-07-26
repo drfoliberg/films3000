@@ -6,8 +6,8 @@ public class Table {
 	private ArrayList<Colonne> colonnes;
 	private ArrayList<Colonne> primary_key;
 	private String nomTable;
-	
-	public Table(ArrayList<Colonne> colonnes, ArrayList<Colonne> primary_key, String nomTable ){
+
+	public Table(ArrayList<Colonne> colonnes, ArrayList<Colonne> primary_key, String nomTable) {
 		this.colonnes = colonnes;
 		this.primary_key = primary_key;
 		this.nomTable = nomTable;
