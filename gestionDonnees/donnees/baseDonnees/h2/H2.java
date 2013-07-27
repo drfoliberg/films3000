@@ -92,9 +92,9 @@ public class H2 extends BaseDonnees {
 		String [] tables =  {"personnes","pays","genres","films","fichiers"};
 		Table table = new Table(tables[0]);
 		Colonne [] colonnes = {
-				new Colonne("id", "int", new String [] {"UNSIGNED", "NOT NULL", "AUTO_INCREMENT", "PRIMARY"}),
-				new Colonne("nom", "text", new String []{"NULL"}),
-				new Colonne("biographie", "text", new String [] {"NULL"})
+				new Colonne("id", "int", "UNSIGNED,NOT NULL,AUTO_INCREMENT", true),
+				new Colonne("nom", "text", "",false),
+				new Colonne("biographie", "text", "",false)
 		};
 		table.ajouterColonnes(colonnes);
 		System.out.println(table.getSql());
