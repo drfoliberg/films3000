@@ -1,4 +1,4 @@
-package composants.films;
+package modeles.films;
 
 public class Duree {
 
@@ -9,10 +9,14 @@ public class Duree {
 
 	/**
 	 * 
-	 * @param duree duree en minutes
-	 * @param nom nom de la version
-	 * @param idFilm id du film tmdb
-	 * @param idVersion numéro de version propre au film
+	 * @param duree
+	 *            duree en minutes
+	 * @param nom
+	 *            nom de la version
+	 * @param idFilm
+	 *            id du film tmdb
+	 * @param idVersion
+	 *            numéro de version propre au film
 	 */
 	public Duree(int duree, String nom, int idFilm, int idVersion) {
 		this.dureeMinutes = duree;

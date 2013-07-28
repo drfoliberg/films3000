@@ -3,7 +3,9 @@ package gestionDonnees.scrappers.local;
 import java.io.File;
 import java.util.ArrayList;
 
-import composants.fichiers.Stream;
+import modeles.fichiers.Stream;
+import modeles.fichiers.StreamAudio;
+
 
 /**
  * Interface à implémenter pour un service d'analyse des métadonnées des

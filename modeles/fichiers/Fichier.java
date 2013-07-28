@@ -1,4 +1,4 @@
-package composants.fichiers;
+package modeles.fichiers;
 
 import java.io.File;
 import java.io.IOException;

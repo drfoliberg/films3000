@@ -1,4 +1,4 @@
-package composants.films;
+package modeles.films;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

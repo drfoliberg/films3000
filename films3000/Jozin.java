@@ -12,12 +12,13 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import modeles.fichiers.FichierFilm;
+import modeles.fichiers.FichierFilmIncomplet;
+import modeles.films.Film;
+
 
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.model.MovieDb;
-import composants.fichiers.FichierFilm;
-import composants.fichiers.FichierFilmIncomplet;
-import composants.films.Film;
 
 public class Jozin {
 

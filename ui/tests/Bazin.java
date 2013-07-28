@@ -11,7 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.border.EmptyBorder;
 
-import composants.films.Film;
+import modeles.films.Film;
+
 
 import films3000.Jozin;
 

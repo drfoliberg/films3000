@@ -1,6 +1,5 @@
-package composants.fichiers;
+package modeles.fichiers;
 
-import gestionDonnees.scrappers.local.Renomeur;
 
 import java.io.File;
 import java.sql.Connection;
@@ -8,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import outils.Renomeur;
 
 
 
@@ -25,7 +26,7 @@ public class FichierFilm {
     public String format;
     public String nomFichier;
     public File fichierDisque;
-    public ArrayList<Stream> streams = null;
+    public ArrayList<Stream> streams;
     public String titre;
     public int annee;
 

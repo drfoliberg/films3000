@@ -1,4 +1,4 @@
-package gestionDonnees.scrappers.local;
+package outils;
 
 import java.io.File;
 import java.util.regex.Matcher;

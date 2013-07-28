@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 import javax.swing.event.EventListenerList;
 
-import composants.films.Film;
+import modeles.films.Film;
+
 
 import films3000.Jozin;
 

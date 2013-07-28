@@ -1,8 +1,9 @@
 package films3000;
 
+import modeles.fichiers.FichierFilm;
+import modeles.films.Film;
+
 import com.omertron.themoviedbapi.TheMovieDbApi;
-import composants.fichiers.FichierFilm;
-import composants.films.Film;
 
 public class Videotheque {
 

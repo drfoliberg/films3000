@@ -1,6 +1,6 @@
 package ui.infoRapide;
 
-import composants.films.Film;
+import modeles.films.Film;
 
 public class InfoRapideFilm extends PanInfoRapide {
 

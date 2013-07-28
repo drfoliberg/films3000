@@ -1,4 +1,4 @@
-package composants.films;
+package modeles.films;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +11,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import modeles.images.Affiche;
+import modeles.images.Fond;
+
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.model.Artwork;
@@ -19,8 +22,6 @@ import com.omertron.themoviedbapi.model.Genre;
 import com.omertron.themoviedbapi.model.MovieDb;
 import com.omertron.themoviedbapi.model.Person;
 import com.omertron.themoviedbapi.model.ProductionCountry;
-import composants.images.Affiche;
-import composants.images.Fond;
 
 /**
  * 
@@ -116,48 +117,44 @@ public class Film {
 		return annee;
 	}
 
-	public boolean inserer(TheMovieDbApi api, Connection con, String langue) throws SQLException, MovieDbException {
-
-		for (Personne p : getPersonnes()) {
-			p.insererPersonneFilm(idTmdb, api, con);
-		}
-
-		for (Pays p : pays) {
-			p.enregistrer(con, idTmdb);
-		}
-
-		for (GenreFilm g : genres) {
-			g.enregistrer(con, idTmdb);
-		}
-
-		List<Artwork> images = api.getMovieImages(idTmdb, "");
-
-		for (Artwork a : images) {
-			if (a.getArtworkType().equals(ArtworkType.BACKDROP)) {
-				Fond fond = new Fond(a.getFilePath(), idTmdb);
-				fond.inserer(con);
-			} else if (a.getArtworkType().equals(ArtworkType.POSTER)) {
-				Affiche affiche = new Affiche(a.getFilePath(), idTmdb);
-				affiche.inserer(con);
-			}
-		}
-
-		// htrhrth
-		// FIXME
-		// wob wob
-
-		String sql = "insert into films (tmdb_id,imdb_id,annee,titre,titre_original,resume,dateAjout) values ("
-				+ "?,?,?,?,?,?,?)";
-		java.sql.PreparedStatement commande = con.prepareStatement(sql);
-		commande.setInt(1, idTmdb);
-		commande.setString(2, idImdb);
-		commande.setInt(3, annee);
-		commande.setString(4, titre);
-		commande.setString(5, titreOrignal);
-		commande.setString(6, resume);
-		commande.setLong(7, dateAjout);
-		return commande.execute();
-	}
+//	public boolean inserer(TheMovieDbApi api, Connection con, String langue) throws SQLException, MovieDbException {
+//
+//		for (Personne p : getPersonnes()) {
+//			p.insererPersonneFilm(idTmdb, api, con);
+//		}
+//
+//		for (Pays p : pays) {
+//			p.enregistrer(con, idTmdb);
+//		}
+//
+//		for (GenreFilm g : genres) {
+//			g.enregistrer(con, idTmdb);
+//		}
+//
+//		List<Artwork> images = api.getMovieImages(idTmdb, "");
+//
+//		for (Artwork a : images) {
+//			if (a.getArtworkType().equals(ArtworkType.BACKDROP)) {
+//				Fond fond = new Fond(a.getFilePath(), idTmdb);
+//				fond.inserer(con);
+//			} else if (a.getArtworkType().equals(ArtworkType.POSTER)) {
+//				Affiche affiche = new Affiche(a.getFilePath(), idTmdb);
+//				affiche.inserer(con);
+//			}
+//		}
+//
+//		String sql = "insert into films (tmdb_id,imdb_id,annee,titre,titre_original,resume,dateAjout) values ("
+//				+ "?,?,?,?,?,?,?)";
+//		java.sql.PreparedStatement commande = con.prepareStatement(sql);
+//		commande.setInt(1, idTmdb);
+//		commande.setString(2, idImdb);
+//		commande.setInt(3, annee);
+//		commande.setString(4, titre);
+//		commande.setString(5, titreOrignal);
+//		commande.setString(6, resume);
+//		commande.setLong(7, dateAjout);
+//		return commande.execute();
+//	}
 
 	public static boolean existe(Connection con, int id_tmdb) throws SQLException {
 		boolean existe = false;

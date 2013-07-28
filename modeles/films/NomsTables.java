@@ -1,4 +1,4 @@
-package composants.films;
+package modeles.films;
 
 public enum NomsTables {
 	REALISATEUR("realisateurs", "films"), ACTEUR("acteurs", "films"), SERIE("series", "films"), PAYS("pays", "films"), GENRE("genres", "films"), LANGUE("langues"),

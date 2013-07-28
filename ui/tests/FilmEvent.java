@@ -1,6 +1,6 @@
 package ui.tests;
 
-import composants.films.Film;
+import modeles.films.Film;
 
 public class FilmEvent {
 

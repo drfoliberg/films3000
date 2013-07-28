@@ -8,19 +8,20 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import modeles.fichiers.FichierFilm;
+import modeles.films.Duree;
+import modeles.films.Film;
+import modeles.films.GenreFilm;
+import modeles.films.Pays;
+import modeles.films.Personne;
+import modeles.images.Affiche;
+import modeles.images.Fond;
+
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.model.Genre;
 import com.omertron.themoviedbapi.model.MovieDb;
 import com.omertron.themoviedbapi.model.Person;
-import composants.fichiers.FichierFilm;
-import composants.films.Duree;
-import composants.films.Film;
-import composants.films.GenreFilm;
-import composants.films.Pays;
-import composants.films.Personne;
-import composants.images.Affiche;
-import composants.images.Fond;
 
 import films3000.Config;
 import films3000.Constantes;

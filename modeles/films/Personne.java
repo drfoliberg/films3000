@@ -1,14 +1,15 @@
-package composants.films;
+package modeles.films;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import modeles.images.Profil;
+
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.model.Person;
-import composants.images.Profil;
 
 import films3000.Constantes;
 import films3000.Departements;

@@ -3,15 +3,16 @@ package gestionDonnees.donnees.baseDonnees;
 import java.io.File;
 import java.util.ArrayList;
 
-import composants.fichiers.FichierFilm;
-import composants.films.Duree;
-import composants.films.Film;
-import composants.films.GenreFilm;
-import composants.films.Pays;
-import composants.films.Personne;
-import composants.images.Affiche;
-import composants.images.Fond;
-import composants.images.Image;
+import modeles.fichiers.FichierFilm;
+import modeles.films.Duree;
+import modeles.films.Film;
+import modeles.films.GenreFilm;
+import modeles.films.Pays;
+import modeles.films.Personne;
+import modeles.images.Affiche;
+import modeles.images.Fond;
+import modeles.images.Image;
+
 
 import gestionDonnees.donnees.GestionFichiersFilm;
 import gestionDonnees.donnees.GestionFilm;

@@ -2,13 +2,14 @@ package gestionDonnees.scrappers.web;
 
 import java.util.ArrayList;
 
+import modeles.films.Duree;
+import modeles.films.Film;
+import modeles.films.GenreFilm;
+import modeles.films.Personne;
+import modeles.images.Affiche;
+import modeles.images.Fond;
+
 import com.omertron.themoviedbapi.MovieDbException;
-import composants.films.Duree;
-import composants.films.Film;
-import composants.films.GenreFilm;
-import composants.films.Personne;
-import composants.images.Affiche;
-import composants.images.Fond;
 
 /**
  * Interface qui contient les méthodes à implémenter pour un service d'accès aux

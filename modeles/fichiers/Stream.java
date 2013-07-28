@@ -1,5 +1,5 @@
 
-package composants.fichiers;
+package modeles.fichiers;
 
 import gestionDonnees.scrappers.local.mediainfo.MediaInfo.StreamKind;
 
@@ -20,7 +20,7 @@ public abstract class Stream {
         
     }
     
-    public abstract boolean inserer(Connection con, int idFichier) throws SQLException;
+    //public abstract boolean inserer(Connection con, int idFichier) throws SQLException;
 
     
 }

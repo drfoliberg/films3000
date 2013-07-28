@@ -1,4 +1,4 @@
-package composants.fichiers;
+package modeles.fichiers;
 
 public class FichierFilmIncomplet extends Exception {
 

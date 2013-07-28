@@ -3,7 +3,8 @@ package gestionDonnees.donnees;
 import java.io.File;
 import java.util.ArrayList;
 
-import composants.fichiers.FichierFilm;
+import modeles.fichiers.FichierFilm;
+
 
 public interface GestionFichiersFilm {
 	public ArrayList<FichierFilm> getFichiers();

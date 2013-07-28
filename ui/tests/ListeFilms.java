@@ -14,7 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import composants.films.Film;
+import modeles.films.Film;
+
 
 import films3000.Jozin;
 
