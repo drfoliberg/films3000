@@ -6,7 +6,7 @@ import modeles.films.Duree;
 import modeles.films.Film;
 import modeles.films.GenreFilm;
 import modeles.films.Pays;
-import modeles.films.Personne;
+import modeles.films.personne.Personne;
 import modeles.images.Affiche;
 import modeles.images.Fond;
 import modeles.images.Image;

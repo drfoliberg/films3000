@@ -3,7 +3,7 @@ package tests;
 import java.io.File;
 import java.util.ArrayList;
 
-import modeles.fichiers.Stream;
+import modeles.fichiers.stream.Stream;
 
 import gestionDonnees.scrappers.local.mediainfo.MediaInfoAnalyse;
 

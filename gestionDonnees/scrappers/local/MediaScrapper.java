@@ -3,8 +3,8 @@ package gestionDonnees.scrappers.local;
 import java.io.File;
 import java.util.ArrayList;
 
-import modeles.fichiers.Stream;
-import modeles.fichiers.StreamAudio;
+import modeles.fichiers.stream.Stream;
+import modeles.fichiers.stream.StreamAudio;
 
 
 /**

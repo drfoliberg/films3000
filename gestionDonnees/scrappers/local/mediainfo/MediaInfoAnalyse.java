@@ -3,10 +3,10 @@ package gestionDonnees.scrappers.local.mediainfo;
 import java.io.File;
 import java.util.ArrayList;
 
-import modeles.fichiers.Stream;
-import modeles.fichiers.StreamAudio;
-import modeles.fichiers.StreamTexte;
-import modeles.fichiers.StreamVideo;
+import modeles.fichiers.stream.Stream;
+import modeles.fichiers.stream.StreamAudio;
+import modeles.fichiers.stream.StreamTexte;
+import modeles.fichiers.stream.StreamVideo;
 
 import films3000.Constantes;
 import gestionDonnees.scrappers.local.MediaScrapper;
@@ -97,7 +97,7 @@ public class MediaInfoAnalyse implements MediaScrapper {
 		if (langue.equals("")) {
 			langue = Constantes.NON_DISPONIBLE;
 		}
-		return new StreamTexte(langue);
+		return new StreamTexte(langue, i);
 	}
 
 	private StreamVideo getStreamVideo(int i) {
@@ -157,7 +157,7 @@ public class MediaInfoAnalyse implements MediaScrapper {
 			}
 		}
 
-		return new StreamVideo(codec, debit, qualite, hauteur, largeur, ips, dureeMs);
+		return new StreamVideo(codec, debit, qualite, hauteur, largeur, ips, dureeMs, i);
 	}
 
 	private StreamAudio getStreamAudio(int i) {
@@ -205,7 +205,7 @@ public class MediaInfoAnalyse implements MediaScrapper {
 		}
 
 		return new StreamAudio(codec, debit, canaux, langue, commentaire,
-				dureeMs);
+				dureeMs, i);
 	}
 
 }

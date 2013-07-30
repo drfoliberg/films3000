@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import modeles.films.personne.Personne;
 import modeles.images.Affiche;
 import modeles.images.Fond;
 

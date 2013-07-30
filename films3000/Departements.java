@@ -14,12 +14,15 @@ public enum Departements {
 	public static final String [] JOBS_SOUND = {"Original Music Composer"};
 	 */
 	
-	WRITING(0,"writing",Constantes.JOBS_WRITING),
-	DIRECTING(1,"directing",Constantes.JOBS_DIRECTING),
-	CAMERA(3,"camera",Constantes.JOBS_CAMERA),
-	EDITING(4,"editing",Constantes.JOBS_EDITING),
-	PRODUCTION(7,"production",Constantes.JOBS_PRODUCTION),
-	SOUND(8,"sound",Constantes.JOBS_SOUND);
+	WRITING(0,"writing", Constantes.JOBS_WRITING),
+	DIRECTING(1,"directing", Constantes.JOBS_DIRECTING),
+	ACTING(2,"actor", new String [0]),
+	CAMERA(3,"camera", Constantes.JOBS_CAMERA),
+	EDITING(4,"editing", Constantes.JOBS_EDITING),
+	PRODUCTION(7,"production", Constantes.JOBS_PRODUCTION),
+	SOUND(8,"sound", Constantes.JOBS_SOUND);
+	
+	public static final String [] DEPARTEMENTS = {"Writing","Directing","acting","Camera","Editing","Production","Sound"};
 	
 	public int getNoDep() {
 		return noDep;

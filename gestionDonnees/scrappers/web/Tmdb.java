@@ -3,6 +3,7 @@ package gestionDonnees.scrappers.web;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -12,8 +13,9 @@ import modeles.fichiers.FichierFilm;
 import modeles.films.Duree;
 import modeles.films.Film;
 import modeles.films.GenreFilm;
-import modeles.films.Pays;
-import modeles.films.Personne;
+import modeles.films.personne.InfoBase;
+import modeles.films.personne.InfoFilm;
+import modeles.films.personne.Personne;
 import modeles.images.Affiche;
 import modeles.images.Fond;
 
@@ -25,6 +27,7 @@ import com.omertron.themoviedbapi.model.Person;
 
 import films3000.Config;
 import films3000.Constantes;
+import films3000.Departements;
 
 public class Tmdb implements WebScrapper {
 
@@ -71,28 +74,6 @@ public class Tmdb implements WebScrapper {
 			e.printStackTrace();
 		}
 		return filmsRecherche;
-	}
-
-	/**
-	 * 
-	 * @param idTmdb
-	 *            L'id du film
-	 * @return La liste des personnes pour un film
-	 * @throws MovieDbException
-	 */
-	public ArrayList<Personne> getPersonnesFilm(int idTmdb) throws MovieDbException {
-		List<Person> cast = api.getMovieCasts(idTmdb);
-		ArrayList<Personne> personnes = new ArrayList<>();
-
-		for (Person person : cast) {
-			Personne personneInfo = new Personne(person);
-			personneInfo.setInfosFilm(person);
-			if (personneInfo.isConserver()) {
-				personnes.add(personneInfo);
-			}
-		}
-
-		return personnes;
 	}
 
 	/**
@@ -254,6 +235,137 @@ public class Tmdb implements WebScrapper {
 	public ArrayList<Fond> getFondsFilm(int id) throws MovieDbException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Personne getPersonne(int idPersonne) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InfoBase getInfoPersonne(int idPersonne) {
+		InfoBase infoBase = new InfoBase();
+		if (idPersonne > 0) {
+			try {
+				Person info = api.getPersonInfo(idPersonne);
+				String nom = info.getName();
+				String naissance = info.getBirthday();
+				String mort = info.getDeathday();
+				String bio = info.getBiography();
+				String image = info.getProfilePath();
+
+				infoBase.setIdPersonne(idPersonne);
+				infoBase.setNom(nom);
+				infoBase.setBio(bio);
+				infoBase.setMort(mort);
+				infoBase.setNaissance(naissance);
+				infoBase.setImage(image);
+			} catch (MovieDbException e) {
+				// TODO
+			}
+		}
+
+		return infoBase;
+	}
+
+	@Override
+	public ArrayList<InfoFilm> getPersonnesFilm(int idFilm) {
+		ArrayList<InfoFilm> personnes = new ArrayList<>();
+		if (idFilm > 0) {
+			try {
+				List<Person> infoPersonnes = api.getMovieCasts(idFilm);
+				for (Person person : infoPersonnes) {
+					InfoFilm info = getInfoFilm(person);
+					if (conserver(info.getJob(),info.getDepartement())) {
+						info.setIdFilm(idFilm);
+						personnes.add(info);
+					}
+				}
+			} catch (MovieDbException e) {
+				// TODO
+			}
+		}
+		return personnes;
+	}
+
+	private InfoFilm getInfoFilm(Person person) {
+		String special = "";
+		int departement = 0;
+		String job = "";
+		int idPersonne = 0;
+		InfoFilm infoFilm = new InfoFilm();
+
+		idPersonne = person.getId();
+		job = person.getJob();
+		departement = getDepartement(person.getDepartment());
+		special = getSpecial(person);
+
+		infoFilm.setIdPersonne(idPersonne);
+		infoFilm.setDepartement(departement);
+		infoFilm.setJob(job);
+		infoFilm.setSpecial(special);
+		
+		return infoFilm;
+	}
+
+	private int getDepartement(String departement) {
+		int no = 0;
+		no = Arrays.asList(Departements.DEPARTEMENTS).indexOf(departement);
+		return no;
+
+	}
+
+	private String getSpecial(Person person) {
+		String special = "";
+		if (person.getJob().equals("actor")) {
+			special = person.getCharacter();
+		}
+
+		return special;
+	}
+
+	private boolean conserver(String job, int departement) {
+		boolean conserver = false;
+
+		switch (departement) {
+		case (2):
+			conserver = true;
+			break;
+		case (0):
+			if (Departements.WRITING.getJobsConserver().contains(job)) {
+				conserver = true;
+			}
+			break;
+		case (1):
+			if (Departements.DIRECTING.getJobsConserver().contains(job)) {
+				conserver = true;
+			}
+			break;
+		case (3):
+			if (Departements.CAMERA.getJobsConserver().contains(job)) {
+				conserver = true;
+			}
+			break;
+		case (4):
+			if (Departements.EDITING.getJobsConserver().contains(job)) {
+				conserver = true;
+			}
+			break;
+		case (7):
+			if (Departements.PRODUCTION.getJobsConserver().contains(job)) {
+				conserver = true;
+			}
+			break;
+		case (9):
+			if (Departements.SOUND.getJobsConserver().contains(job)) {
+				conserver = true;
+			}
+			break;
+		}
+
+		return conserver;
+
 	}
 
 }
