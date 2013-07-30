@@ -47,7 +47,7 @@ public class Tmdb implements WebScrapper {
 	}
 
 	public Film[] rechercheFilm(FichierFilm fic) {
-		return rechercheFilm(fic.titre, fic.annee);
+		return rechercheFilm(fic.getTitre(), fic.getAnnee());
 	}
 
 	/**

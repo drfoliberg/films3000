@@ -69,19 +69,8 @@ public class Film {
 	public ArrayList<Personne> getPersonnes() {
 		return this.personnes;
 	}
-
-	public void setPersonnes(List<Person> personnes) throws MovieDbException {
-		for (Person p : personnes) {
-			ajouterPersonne(p);
-		}
-	}
-
-	private void ajouterPersonne(Person p) throws MovieDbException {
-		Personne tmp = new Personne(p);
-		tmp.setInfosFilm(p);
-		this.personnes.add(tmp);
-	}
-
+	
+	@Deprecated
 	public void setInfos(MovieDb infoApi) {
 
 		genres = new ArrayList<GenreFilm>();
@@ -102,6 +91,7 @@ public class Film {
 
 	}
 
+	
 	private int getAnnee(String dateStr) {
 		int annee = 0;
 		if (dateStr != null && !dateStr.equals("null")) {
@@ -157,6 +147,7 @@ public class Film {
 //		return commande.execute();
 //	}
 
+	@Deprecated
 	public static boolean existe(Connection con, int id_tmdb) throws SQLException {
 		boolean existe = false;
 		java.sql.PreparedStatement commande = con.prepareStatement("Select tmdb_id from films where tmdb_id = "

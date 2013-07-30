@@ -83,6 +83,4 @@ public class StreamAudio extends Stream {
 	public void setDureeMs(int dureeMs) {
 		this.dureeMs = dureeMs;
 	}
-	
-
 }

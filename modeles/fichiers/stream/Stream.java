@@ -4,7 +4,7 @@ package modeles.fichiers.stream;
  * 
  * @author justin
  */
-public class Stream {
+public abstract class Stream {
 
 	protected int idStream;
 	protected int idFichier;

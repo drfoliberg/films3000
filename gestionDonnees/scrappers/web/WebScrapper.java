@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import modeles.films.Duree;
 import modeles.films.Film;
 import modeles.films.GenreFilm;
-import modeles.films.personne.Filmographie;
 import modeles.films.personne.InfoBase;
 import modeles.films.personne.InfoFilm;
 import modeles.films.personne.Personne;
