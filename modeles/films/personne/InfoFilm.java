@@ -20,6 +20,18 @@ public class InfoFilm {
 		this.idPersonne = idPersonne;
 	}
 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Personne id:");
+		sb.append(this.idPersonne);
+		sb.append(" ");
+		sb.append(job);
+		sb.append(" ");
+		sb.append(special);
+		sb.append("\n");
+		return sb.toString();
+	}
+
 	public String getJob() {
 		return job;
 	}

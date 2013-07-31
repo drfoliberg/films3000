@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import modeles.films.Duree;
 import modeles.films.Film;
 import modeles.films.GenreFilm;
+import modeles.films.Pays;
 import modeles.films.personne.InfoBase;
 import modeles.films.personne.InfoFilm;
 import modeles.films.personne.Personne;
@@ -29,6 +30,8 @@ public interface WebScrapper {
 	public ArrayList<Affiche> getAffichesFilm(int id) throws MovieDbException;
 
 	public ArrayList<Fond> getFondsFilm(int id) throws MovieDbException;
+	
+	public ArrayList<Pays> getPays(int id) throws MovieDbException;
 
 	//public ArrayList<Personne> getPersonnesFilm(int id) throws MovieDbException;
 
@@ -43,4 +46,6 @@ public interface WebScrapper {
 	public InfoBase getInfoPersonne(int idPersonne);
 	
 	public ArrayList<InfoFilm> getPersonnesFilm(int idFilm);
+	
+	public ArrayList<String> getCompagnie(int idFilm);
 }

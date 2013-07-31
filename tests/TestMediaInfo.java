@@ -16,7 +16,9 @@ public class TestMediaInfo {
 		MediaInfoAnalyse mediainfo = new MediaInfoAnalyse();
 		mediainfo.open(new File("/tank/ecole/Films/The.Good.The.Bad.and.The.Ugly[1966][1080p]/The.Good.the.Bad.and.the.Ugly[1966][1080p].mkv"));
 		ArrayList<Stream> streams =  mediainfo.getStreams();
-		System.out.println();
+		for (Stream stream : streams) {
+			System.out.println(stream.toString());
+		}
 	}
 
 }

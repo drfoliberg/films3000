@@ -83,4 +83,27 @@ public class StreamAudio extends Stream {
 	public void setDureeMs(int dureeMs) {
 		this.dureeMs = dureeMs;
 	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("StreamAudio id:");
+		sb.append(this.idStream);
+		sb.append("\n");
+		sb.append(this.dureeMs/(1000*60));
+		sb.append("min ");
+		sb.append(this.codec);
+		sb.append(" ");
+		sb.append(this.canaux);
+		sb.append("ch ");
+		sb.append(this.debit);
+		sb.append(" kbps");
+		sb.append("\n");
+		sb.append(this.langue);
+		
+		if(this.commentaire){
+			sb.append(" Commentaire");
+		}
+		sb.append("\n");
+		return sb.toString();
+	}
 }

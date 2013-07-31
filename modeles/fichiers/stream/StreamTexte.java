@@ -20,4 +20,14 @@ public class StreamTexte extends Stream {
 	public void setLangue(String langue) {
 		this.langue = langue;
 	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("StreamTexte id:");
+		sb.append(this.idStream);
+		sb.append("\n");
+		sb.append(this.langue);
+		sb.append("\n");
+		return sb.toString();
+	}
 }

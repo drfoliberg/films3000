@@ -29,4 +29,5 @@ public abstract class Stream {
 		this.idFichier = idFichier;
 	}
 
+	
 }

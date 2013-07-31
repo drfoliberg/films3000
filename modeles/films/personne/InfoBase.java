@@ -43,7 +43,7 @@ public class InfoBase {
 
 	public void setMort(String mort) {
 		java.util.Date date = new Date(0);
-		if (!mort.equals("")) {
+		if (mort != null && !mort.equals("")) {
 			try {
 				date = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH).parse(mort);
 			} catch (ParseException e) {
@@ -59,7 +59,7 @@ public class InfoBase {
 
 	public void setNaissance(String naissance) {
 		java.util.Date date = new Date(0);
-		if (!naissance.equals("")) {
+		if (naissance != null && !naissance.equals("")) {
 			try {
 				date = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH).parse(naissance);
 			} catch (ParseException e) {

@@ -37,6 +37,25 @@ public class StreamVideo extends Stream {
 		this.ips = ips;
 		this.dureeMs = dureeMs;
 	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("StreamAudio id:");
+		sb.append(this.idStream);
+		sb.append("\n");
+		sb.append(this.dureeMs/(1000*60));
+		sb.append("min ");
+		sb.append(this.codec);
+		sb.append(" ");
+		sb.append(this.ips);
+		sb.append("fps ");
+		sb.append(this.debit);
+		sb.append(" kbps ");
+		sb.append(this.qualite);
+
+		sb.append("\n");
+		return sb.toString();
+	}
 
 	public String getCodec() {
 		return codec;

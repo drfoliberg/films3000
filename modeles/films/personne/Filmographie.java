@@ -11,10 +11,27 @@ public class Filmographie {
 		films = new ArrayList<>();
 		this.idPersonne = idPersonne;
 	}
+	
+	public InfoFilm getFilm(int idTmdb){
+		InfoFilm film = null;
+
+		for (InfoFilm infoFilm : films) {
+			if(infoFilm.getIdFilm() == idTmdb){
+				film = infoFilm;
+				break;
+			}
+		}
+		
+		return film;
+	}
+	
+	public int getNbFilms(){
+		return films.size();
+	}
 
 	public void ajouterFilm(InfoFilm film) {
 		if (film != null) {
-
+			this.films.add(film);
 		}
 	}
 

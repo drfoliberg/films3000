@@ -1,7 +1,6 @@
 package modeles.fichiers;
 
 import java.io.File;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -50,6 +49,10 @@ public class RenomeurFilm extends Renommeur{
 		nettoyerEspaces();
 		trouverDate();
 		trouverTitre();
+		if(!dateEstValide()){
+			this.date = "1896";
+			System.out.println("Problème avec la date");
+		}
 	}
 	
 	private void trouverDate() {
@@ -87,7 +90,7 @@ public class RenomeurFilm extends Renommeur{
 		}
 	}
 
-	private boolean dateEstValide() {
+	boolean dateEstValide() {
 		boolean valide = false;
 		if (dateTrouve && getAnnee() >= 1896) {
 			valide = true;

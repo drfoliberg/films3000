@@ -13,6 +13,7 @@ import modeles.fichiers.FichierFilm;
 import modeles.films.Duree;
 import modeles.films.Film;
 import modeles.films.GenreFilm;
+import modeles.films.Pays;
 import modeles.films.personne.InfoBase;
 import modeles.films.personne.InfoFilm;
 import modeles.films.personne.Personne;
@@ -24,6 +25,8 @@ import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.model.Genre;
 import com.omertron.themoviedbapi.model.MovieDb;
 import com.omertron.themoviedbapi.model.Person;
+import com.omertron.themoviedbapi.model.ProductionCompany;
+import com.omertron.themoviedbapi.model.ProductionCountry;
 
 import films3000.Config;
 import films3000.Constantes;
@@ -67,7 +70,9 @@ public class Tmdb implements WebScrapper {
 			filmsRecherche = new Film[listeRecherche.size()];
 
 			for (int i = 0; i < filmsRecherche.length; i++) {
-				filmsRecherche[i] = new Film(listeRecherche.get(i));
+				// TODO faire un object FilmRecherche ou changer le modèle de
+				// Film actuel pour faciliter la recherche
+				// filmsRecherche[i] = new Film(listeRecherche.get(i));
 			}
 
 		} catch (MovieDbException e) {
@@ -91,33 +96,33 @@ public class Tmdb implements WebScrapper {
 		Personne personne = new Personne(id);
 
 		if (personneCourante.getName() == null || personneCourante.getName() == "") {
-			personne.setNom(Constantes.NON_DISPONIBLE);
+			personne.getInfoBase().setNom(Constantes.NON_DISPONIBLE);
 		} else {
-			personne.setNom(personneCourante.getName());
+			personne.getInfoBase().setNom(personneCourante.getName());
 		}
 
 		if (personneCourante.getBirthday() == null || personneCourante.getBirthday() == "") {
-			personne.setNaissance(Constantes.NON_DISPONIBLE);
+			personne.getInfoBase().setNaissance(Constantes.NON_DISPONIBLE);
 		} else {
-			personne.setNaissance(personneCourante.getBirthday());
+			personne.getInfoBase().setNaissance(personneCourante.getBirthday());
 		}
 
 		if (personneCourante.getDeathday() == null || personneCourante.getDeathday() == "") {
-			personne.setMort(Constantes.NON_DISPONIBLE);
+			personne.getInfoBase().setMort(Constantes.NON_DISPONIBLE);
 		} else {
-			personne.setMort(personneCourante.getDeathday());
+			personne.getInfoBase().setMort(personneCourante.getDeathday());
 		}
 
 		if (personneCourante.getBiography() == null || personneCourante.getBiography() == "") {
-			personne.setBio(Constantes.NON_DISPONIBLE);
+			personne.getInfoBase().setBio(Constantes.NON_DISPONIBLE);
 		} else {
-			personne.setBio(personneCourante.getBiography());
+			personne.getInfoBase().setBio(personneCourante.getBiography());
 		}
 
 		if (personneCourante.getProfilePath() == null || personneCourante.getProfilePath() == "") {
-			personne.setImage(Constantes.NON_DISPONIBLE);
+			personne.getInfoBase().setImage(Constantes.NON_DISPONIBLE);
 		} else {
-			personne.setImage(personneCourante.getProfilePath());
+			personne.getInfoBase().setImage(personneCourante.getProfilePath());
 		}
 
 		return personne;
@@ -221,8 +226,44 @@ public class Tmdb implements WebScrapper {
 
 	@Override
 	public Film getFilm(int id) throws MovieDbException {
-		// TODO Auto-generated method stub
-		return null;
+		changerFilm(id);
+
+		int annee = 0;
+		int idTmdb = 0;
+		String idImdb = "";
+		String titre = "";
+		String titreOriginal = "";
+		String resume = "";
+		ArrayList<Pays> pays = new ArrayList<>();
+		ArrayList<InfoFilm> personnes = new ArrayList<>();
+		ArrayList<GenreFilm> genres = new ArrayList<>();
+		ArrayList<Duree> durees = new ArrayList<>();
+		Film film = new Film();
+
+		titre = filmCourant.getTitle();
+		titreOriginal = filmCourant.getOriginalTitle();
+		idTmdb = filmCourant.getId();
+		idImdb = filmCourant.getImdbID();
+		resume = filmCourant.getOverview();
+		pays = this.getPays(idTmdb);
+		personnes = this.getPersonnesFilm(idTmdb);
+		genres = this.getGenresFilm(idTmdb);
+		durees = Imdb.scrapeDurees(idImdb, idTmdb);
+		annee = getAnneeFilm(idTmdb);
+		genres = getGenresFilm(idTmdb);
+
+		film.setTitre(titre);
+		film.setTitreOriginal(titreOriginal);
+		film.setAnnee(annee);
+		film.setDateAjout(System.currentTimeMillis());
+		film.setIdImdb(idImdb);
+		film.setIdTmdb(idTmdb);
+		film.setPays(pays);
+		film.setGenres(genres);
+		film.setResume(resume);
+		film.setPersonnes(personnes);
+		film.setDurees(durees);
+		return film;
 	}
 
 	@Override
@@ -277,7 +318,7 @@ public class Tmdb implements WebScrapper {
 				List<Person> infoPersonnes = api.getMovieCasts(idFilm);
 				for (Person person : infoPersonnes) {
 					InfoFilm info = getInfoFilm(person);
-					if (conserver(info.getJob(),info.getDepartement())) {
+					if (conserver(info.getJob(), info.getDepartement())) {
 						info.setIdFilm(idFilm);
 						personnes.add(info);
 					}
@@ -305,7 +346,7 @@ public class Tmdb implements WebScrapper {
 		infoFilm.setDepartement(departement);
 		infoFilm.setJob(job);
 		infoFilm.setSpecial(special);
-		
+
 		return infoFilm;
 	}
 
@@ -366,6 +407,39 @@ public class Tmdb implements WebScrapper {
 
 		return conserver;
 
+	}
+
+	@Override
+	public ArrayList<String> getCompagnie(int idFilm) {
+		ArrayList<String> listeCompagnies = new ArrayList<>();
+		try {
+			changerFilm(idFilm);
+			List<ProductionCompany> compagnies = this.filmCourant.getProductionCompanies();
+			for (ProductionCompany productionCompany : compagnies) {
+				listeCompagnies.add(productionCompany.getName());
+			}
+		} catch (MovieDbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return listeCompagnies;
+	}
+
+	@Override
+	public ArrayList<Pays> getPays(int id) throws MovieDbException {
+		changerFilm(id);
+		ArrayList<Pays> pays = new ArrayList<>();
+		List<ProductionCountry> paysList = filmCourant.getProductionCountries();
+
+		for (ProductionCountry productionCountry : paysList) {
+			String nom = productionCountry.getName();
+			String iso = productionCountry.getIsoCode();
+			Pays p = new Pays(iso, nom);
+			pays.add(p);
+		}
+
+		return pays;
 	}
 
 }
