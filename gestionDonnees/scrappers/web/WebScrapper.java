@@ -47,5 +47,5 @@ public interface WebScrapper {
 	
 	public ArrayList<InfoFilm> getPersonnesFilm(int idFilm);
 	
-	public ArrayList<String> getCompagnie(int idFilm);
+	public ArrayList<String> getCompagnies(int idFilm);
 }

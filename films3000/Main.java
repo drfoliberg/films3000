@@ -15,7 +15,7 @@ public class Main {
 
 		//String nomFichier = "Z:/ecole/Films/Matrix.Trilogy[1080p]/The.Matrix[1999][1080p]/The.Matrix[1999][1080p].mkv";
 		Jozin coeurLogique =  new Jozin("20d2c5786283461e15f82c94a98cca17", "", new Date(),"en","images");
-		ui.Config conf = new ui.Config(coeurLogique);
+		gestionDonnees.config.Config conf = new gestionDonnees.config.Config(coeurLogique);
 		conf.setVisible(true);
 //		FichierFilm f = coeurLogique.nouveauFichier(new File(nomFichier));
 //		Film [] films = coeurLogique.rechercheFilm(f);

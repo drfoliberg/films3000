@@ -30,7 +30,6 @@ public class Film {
 	private String titreOriginal;
 	private String resume;
 	private String idImdb;
-	private int duree;
 	private long dateAjout;
 	private ArrayList<GenreFilm> genres;
 	private ArrayList<Pays> pays;
@@ -94,10 +93,6 @@ public class Film {
 		return dateAjout;
 	}
 
-	public int getDuree() {
-		return duree;
-	}
-
 	public ArrayList<Duree> getDurees() {
 		return durees;
 	}
@@ -154,10 +149,6 @@ public class Film {
 		this.dateAjout = dateAjout;
 	}
 
-	public void setDuree(int duree) {
-		this.duree = duree;
-	}
-
 	public void setDurees(ArrayList<Duree> durees) {
 		this.durees = durees;
 	}
@@ -176,27 +167,6 @@ public class Film {
 
 	public void setIdTmdb(int idTmdb) {
 		this.idTmdb = idTmdb;
-	}
-
-	@Deprecated
-	public void setInfos(MovieDb infoApi) {
-
-		genres = new ArrayList<GenreFilm>();
-		pays = new ArrayList<Pays>();
-		resume = infoApi.getOverview();
-		duree = infoApi.getRuntime();
-
-		for (Genre g : infoApi.getGenres()) {
-			genres.add(new GenreFilm(g));
-		}
-
-		for (ProductionCountry p : infoApi.getProductionCountries()) {
-			pays.add(new Pays(p));
-		}
-
-		dateAjout = Calendar.getInstance().getTimeInMillis();
-		idImdb = infoApi.getImdbID();
-
 	}
 
 	public void setPays(ArrayList<Pays> pays) {

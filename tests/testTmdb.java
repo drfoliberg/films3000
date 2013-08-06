@@ -1,7 +1,7 @@
 package tests;
 
 import modeles.films.Film;
-import films3000.Config;
+import gestionDonnees.config.Config;
 import gestionDonnees.scrappers.web.Tmdb;
 
 import com.omertron.themoviedbapi.MovieDbException;

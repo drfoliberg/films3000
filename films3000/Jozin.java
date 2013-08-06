@@ -1,5 +1,6 @@
 package films3000;
 
+import gestionDonnees.config.Config;
 import gestionDonnees.scrappers.local.mediainfo.MediaInfoAnalyse;
 import gestionDonnees.scrappers.web.Tmdb;
 

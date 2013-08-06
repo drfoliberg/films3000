@@ -28,9 +28,9 @@ import com.omertron.themoviedbapi.model.Person;
 import com.omertron.themoviedbapi.model.ProductionCompany;
 import com.omertron.themoviedbapi.model.ProductionCountry;
 
-import films3000.Config;
 import films3000.Constantes;
-import films3000.Departements;
+import gestionDonnees.config.Config;
+import gestionDonnees.config.Departements;
 
 public class Tmdb implements WebScrapper {
 
@@ -410,7 +410,7 @@ public class Tmdb implements WebScrapper {
 	}
 
 	@Override
-	public ArrayList<String> getCompagnie(int idFilm) {
+	public ArrayList<String> getCompagnies(int idFilm) {
 		ArrayList<String> listeCompagnies = new ArrayList<>();
 		try {
 			changerFilm(idFilm);
