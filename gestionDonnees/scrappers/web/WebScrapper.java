@@ -11,6 +11,7 @@ import modeles.films.personne.InfoFilm;
 import modeles.films.personne.Personne;
 import modeles.images.Affiche;
 import modeles.images.Fond;
+import modeles.images.Image;
 
 import com.omertron.themoviedbapi.MovieDbException;
 
@@ -27,9 +28,11 @@ public interface WebScrapper {
 
 	public ArrayList<Duree> getDurees(int id) throws MovieDbException;
 
-	public ArrayList<Affiche> getAffichesFilm(int id) throws MovieDbException;
-
-	public ArrayList<Fond> getFondsFilm(int id) throws MovieDbException;
+	public ArrayList<Image> getImagesFilm(int id) throws MovieDbException;
+	
+	public ArrayList<Fond> getFondsFilm(ArrayList<Image> images) throws MovieDbException;
+	
+	public ArrayList<Affiche> getAffichesFilm(ArrayList<Image> images) throws MovieDbException;
 	
 	public ArrayList<Pays> getPays(int id) throws MovieDbException;
 

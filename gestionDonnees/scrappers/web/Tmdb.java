@@ -19,9 +19,13 @@ import modeles.films.personne.InfoFilm;
 import modeles.films.personne.Personne;
 import modeles.images.Affiche;
 import modeles.images.Fond;
+import modeles.images.Image;
+import modeles.images.Profil;
 
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
+import com.omertron.themoviedbapi.model.Artwork;
+import com.omertron.themoviedbapi.model.ArtworkType;
 import com.omertron.themoviedbapi.model.Genre;
 import com.omertron.themoviedbapi.model.MovieDb;
 import com.omertron.themoviedbapi.model.Person;
@@ -234,10 +238,13 @@ public class Tmdb implements WebScrapper {
 		String titre = "";
 		String titreOriginal = "";
 		String resume = "";
+
 		ArrayList<Pays> pays = new ArrayList<>();
 		ArrayList<InfoFilm> personnes = new ArrayList<>();
 		ArrayList<GenreFilm> genres = new ArrayList<>();
 		ArrayList<Duree> durees = new ArrayList<>();
+		ArrayList<Image> images = new ArrayList<>();
+
 		Film film = new Film();
 
 		titre = filmCourant.getTitle();
@@ -245,12 +252,15 @@ public class Tmdb implements WebScrapper {
 		idTmdb = filmCourant.getId();
 		idImdb = filmCourant.getImdbID();
 		resume = filmCourant.getOverview();
+
+		images = getImagesFilm(id);
+
 		pays = this.getPays(idTmdb);
 		personnes = this.getPersonnesFilm(idTmdb);
 		genres = this.getGenresFilm(idTmdb);
 		durees = Imdb.scrapeDurees(idImdb, idTmdb);
-		annee = getAnneeFilm(idTmdb);
-		genres = getGenresFilm(idTmdb);
+		annee = this.getAnneeFilm(idTmdb);
+		genres = this.getGenresFilm(idTmdb);
 
 		film.setTitre(titre);
 		film.setTitreOriginal(titreOriginal);
@@ -263,19 +273,58 @@ public class Tmdb implements WebScrapper {
 		film.setResume(resume);
 		film.setPersonnes(personnes);
 		film.setDurees(durees);
+		film.setAffiches(getAffichesFilm(images));
+		film.setFonds(getFondsFilm(images));
 		return film;
 	}
 
 	@Override
-	public ArrayList<Affiche> getAffichesFilm(int id) throws MovieDbException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Image> getImagesFilm(int id) throws MovieDbException {
+		ArrayList<Image> imagesFilm = new ArrayList<>();
+
+		if (conf.getTouteImages()) {
+			List<Artwork> images = api.getMovieImages(id, conf.getLangue());
+			for (Artwork artwork : images) {
+				if (artwork.getArtworkType().equals(ArtworkType.BACKDROP)) {
+					Fond img = new Fond(artwork.getFilePath(), id);
+					imagesFilm.add(img);
+				} else if (artwork.getArtworkType().equals(ArtworkType.POSTER)) {
+					Affiche img = new Affiche(artwork.getFilePath(), id, conf.getLangue());
+					imagesFilm.add(img);
+				}
+			}
+		} else {
+			changerFilm(id);
+			Fond fond = new Fond(filmCourant.getBackdropPath(), id);
+			imagesFilm.add(fond);
+
+			Affiche affiche = new Affiche(filmCourant.getPosterPath(), id, conf.getLangue());
+			imagesFilm.add(affiche);
+		}
+
+		return imagesFilm;
 	}
 
 	@Override
-	public ArrayList<Fond> getFondsFilm(int id) throws MovieDbException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Affiche> getAffichesFilm(ArrayList<Image> images) throws MovieDbException {
+		ArrayList<Affiche> affiches = new ArrayList<>();
+		for (Image img : images) {
+			if (img instanceof Affiche) {
+				affiches.add((Affiche) img);
+			}
+		}
+		return affiches;
+	}
+
+	@Override
+	public ArrayList<Fond> getFondsFilm(ArrayList<Image> images) throws MovieDbException {
+		ArrayList<Fond> fonds = new ArrayList<>();
+		for (Image img : images) {
+			if (img instanceof Fond) {
+				fonds.add((Fond) img);
+			}
+		}
+		return fonds;
 	}
 
 	@Override
