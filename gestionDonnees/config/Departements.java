@@ -26,6 +26,7 @@ public enum Departements {
 	
 	public static final String [] DEPARTEMENTS = {"Writing","Directing","acting","Camera","Editing","Production","Sound"};
 	
+	
 	public int getNoDep() {
 		return noDep;
 	}

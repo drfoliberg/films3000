@@ -1,6 +1,7 @@
 package modeles.images;
 
 public class Affiche extends Image {
+	
 	private int idFilm;
 	private String langue;
 	public static final int TYPE = 0;
