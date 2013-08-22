@@ -1,5 +1,8 @@
 package gestionDonnees.donnees.baseDonnees.structure;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Colonne {
 	private String nom;
 	private String type;
@@ -75,10 +78,16 @@ public class Colonne {
 	public boolean equals(Object obj) {
 		boolean egal = false;
 		if (obj instanceof Colonne) {
+
 			Colonne compare = (Colonne) obj;
-			if (compare.getNom().equals(this.getNom())) {
-				egal = true;
+			if (compare.getNom().equals(this.getNom()) && this.primaire == compare.primaire
+					&& this.type.equals(compare.type) && this.proprietes.length == compare.proprietes.length) {
+				ArrayList<String> proprietes = (ArrayList<String>) Arrays.asList(compare.proprietes);
+				if (proprietes.containsAll(Arrays.asList(this.proprietes))) {
+					egal = true;
+				}
 			}
+			
 		}
 		return egal;
 	}

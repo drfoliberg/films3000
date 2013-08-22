@@ -9,7 +9,7 @@ public class InfoFilm {
 	int idPersonne;
 
 	public InfoFilm() {
-
+		
 	}
 
 	public InfoFilm(String job, String special, int departement, int idFilm, int idPersonne) {

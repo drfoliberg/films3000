@@ -1,6 +1,13 @@
 package gestionDonnees.donnees.baseDonnees;
 
+import gestionDonnees.donnees.GestionFichiersFilm;
+import gestionDonnees.donnees.GestionFilm;
+import gestionDonnees.donnees.baseDonnees.structure.Colonne;
+import gestionDonnees.donnees.baseDonnees.structure.Structure;
+import gestionDonnees.donnees.baseDonnees.structure.Table;
+
 import java.io.File;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import modeles.fichiers.FichierFilm;
@@ -13,32 +20,49 @@ import modeles.images.Affiche;
 import modeles.images.Fond;
 import modeles.images.Image;
 
-
-import gestionDonnees.donnees.GestionFichiersFilm;
-import gestionDonnees.donnees.GestionFilm;
-import gestionDonnees.donnees.baseDonnees.structure.Structure;
-
-public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm{
+public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm {
+	
+	protected String nom;
+	protected String url;
+	protected Connection connection;
 
 	public abstract boolean open();
-	
+
 	public abstract boolean close();
-	
-	public abstract String getNom();
-	
-	public abstract String getUrl();
-	
-	public abstract void setNom(String nom);
-	
-	public abstract void setUrl(String url);
-	
-	public abstract boolean tablesValides();
-	
+
+	public abstract Colonne getColonne(String nomColonne);
+
+	public abstract Structure getStructure();
+
+	public abstract Table getTable(String nomTable);
+
 	public abstract void mettreEnPlaceTables();
-	
+
 	public abstract boolean baseDonneesExiste();
-	
+
 	public abstract void creerBaseDonnees();
+
+	
+	
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
 
 	@Override
 	public Film getFilmBase(int id) {
@@ -85,73 +109,73 @@ public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm{
 	@Override
 	public void supprimerDuree(int idTmdbFilm, int idVersion) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void supprimerFilm(Film film) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void supprimerImage(Image image) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void supprimerPersonne(Personne personne) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void supprimerDuree(Duree duree) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void supprimerGenre(GenreFilm genre) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void insererFilm(Film film) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void insererPersonne(Personne personne) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void insererGenre(GenreFilm genre) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void insererDuree(Duree duree) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void insererImage(Image image) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void insererPays(Pays pays) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -183,7 +207,7 @@ public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public ArrayList<FichierFilm> getFichiers() {
 		// TODO Auto-generated method stub
@@ -193,7 +217,7 @@ public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm{
 	@Override
 	public void supprimerFichierFilm(int idFichier) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -205,14 +229,13 @@ public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm{
 	@Override
 	public void supprimerFichierFilm(FichierFilm fichier) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void ajouterFichierFilm(FichierFilm fichier) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

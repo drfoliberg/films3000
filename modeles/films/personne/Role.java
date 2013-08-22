@@ -2,7 +2,7 @@ package modeles.films.personne;
 
 import java.io.Serializable;
 
-public class Role implements Serializable{
+public class Role implements Serializable {
 
 	private static final long serialVersionUID = 1388183333182608403L;
 	private int departement;
@@ -38,9 +38,9 @@ public class Role implements Serializable{
 		}
 		return false;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.getDepartement());
 		sb.append(" ");

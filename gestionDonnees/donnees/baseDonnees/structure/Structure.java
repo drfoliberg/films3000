@@ -22,4 +22,22 @@ public class Structure {
 
 		return sql.toString();
 	}
+
+	public ArrayList<Table> getTables() {
+		return tables;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		boolean egal = false;
+
+		if (o instanceof Structure) {
+			Structure compare = (Structure)o;
+			if(compare.tables.size() == this.tables.size() && this.tables.containsAll(compare.tables)){
+				egal = true;
+			}
+		}
+
+		return egal;
+	}
 }

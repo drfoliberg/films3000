@@ -49,4 +49,31 @@ public class Table {
 
 		return sql;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		boolean egal = false;
+		if (o instanceof Table) {
+			Table compare = (Table) o;
+			if (this.colonnes.size() == compare.getColonnes().size() && this.nomTable.equals(compare.nomTable)
+					&& this.primary_key.size() == compare.primary_key.size() && this.colonnes.containsAll(compare.colonnes) &&this.primary_key.containsAll(compare.primary_key)) {
+				egal = true;
+			}
+		}
+
+		return egal;
+
+	}
+
+	public ArrayList<Colonne> getColonnes() {
+		return colonnes;
+	}
+
+	public ArrayList<Colonne> getPrimary_key() {
+		return primary_key;
+	}
+
+	public String getNomTable() {
+		return nomTable;
+	}
 }
