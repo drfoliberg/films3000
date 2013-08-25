@@ -1,8 +1,11 @@
 package gestionDonnees.donnees.baseDonnees.structure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Table {
+public class Table implements Serializable {
+
+	private static final long serialVersionUID = -5093766785963838587L;
 	private ArrayList<Colonne> colonnes;
 	private ArrayList<Colonne> primary_key;
 	private String nomTable;
@@ -56,7 +59,8 @@ public class Table {
 		if (o instanceof Table) {
 			Table compare = (Table) o;
 			if (this.colonnes.size() == compare.getColonnes().size() && this.nomTable.equals(compare.nomTable)
-					&& this.primary_key.size() == compare.primary_key.size() && this.colonnes.containsAll(compare.colonnes) &&this.primary_key.containsAll(compare.primary_key)) {
+					&& this.primary_key.size() == compare.primary_key.size()
+					&& this.colonnes.containsAll(compare.colonnes) && this.primary_key.containsAll(compare.primary_key)) {
 				egal = true;
 			}
 		}

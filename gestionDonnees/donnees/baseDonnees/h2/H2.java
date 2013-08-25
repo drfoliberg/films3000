@@ -58,12 +58,6 @@ public class H2 extends BaseDonnees {
 	@Override
 	public void mettreEnPlaceTables() {
 
-		String[] tables = { "personnes", "pays", "genres", "films", "fichiers" };
-		Table table = new Table(tables[0]);
-		Colonne[] colonnes = { new Colonne("id", "int", "UNSIGNED,NOT NULL,AUTO_INCREMENT", true),
-				new Colonne("nom", "text", "", false), new Colonne("biographie", "text", "", false) };
-		table.ajouterColonnes(colonnes);
-		//System.out.println(table.getSql());
 	}
 
 	@Override

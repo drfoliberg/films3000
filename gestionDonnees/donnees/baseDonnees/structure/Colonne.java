@@ -1,31 +1,50 @@
 package gestionDonnees.donnees.baseDonnees.structure;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import gestionDonnees.donnees.baseDonnees.structure.constantes.Proprietes;
+import gestionDonnees.donnees.baseDonnees.structure.types.Type;
 
-public class Colonne {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+
+
+public class Colonne implements Serializable {
+
+	private static final long serialVersionUID = -5852282813687663771L;
 	private String nom;
 	private String type;
-	private String[] proprietes;
+	private ArrayList<Proprietes> proprietes;
 	private boolean primaire;
 	private StringBuilder sql;
 
 	/**
-	 * Constructeur alternatif qui sépare les propriétés
+	 * Constructeur alternatif
 	 * 
 	 * @param nom
-	 *            Nom de la table
+	 *            Nom de la colonne
 	 * @param type
 	 *            Type de donnée
 	 * @param proprietes
-	 *            Propriétés séparées par des virgules. Si vide, la propriété
-	 *            NULL sera attribuée.
+	 *            Tableau des propriétés. Si vide, la propriété NULL sera
+	 *            attribuée.
 	 * @param primaire
 	 *            Fait partie de la clé primare
 	 */
 
-	public Colonne(String nom, String type, String proprietes, boolean primaire) {
-		this(nom, type, proprietes.split(","), primaire);
+	public Colonne(String nom, Type type, Proprietes [] proprietes, boolean primaire) {
+		
+		this.proprietes = new ArrayList<>();
+		this.nom = nom;
+		this.type = type.toString();
+		if (proprietes.length == 0) {
+			this.proprietes = new ArrayList<>();
+			this.proprietes.add(Proprietes.NULL);
+		} else {
+			for (Proprietes propriete: proprietes) {
+				this.proprietes.add(propriete);
+			}
+		}
+		this.primaire = primaire;
 	}
 
 	/**
@@ -36,16 +55,18 @@ public class Colonne {
 	 * @param type
 	 *            Type de donnée
 	 * @param proprietes
-	 *            Tableau des propriétés. Si vide, la propriété NULL sera
+	 *            Liste des propriétés. Si vide, la propriété NULL sera
 	 *            attribuée.
 	 * @param primaire
 	 *            Fait partie de la clé primare
 	 */
-	public Colonne(String nom, String type, String[] proprietes, boolean primaire) {
+	public Colonne(String nom, Type type, ArrayList<Proprietes> proprietes, boolean primaire) {
+		
 		this.nom = nom;
-		this.type = type;
-		if (proprietes.length == 1 && proprietes[0].equals("") || proprietes.length == 0) {
-			this.proprietes = new String[] { "NULL" };
+		this.type = type.toString();
+		if (proprietes.size() == 0) {
+			this.proprietes = new ArrayList<>();
+			this.proprietes.add(Proprietes.NULL);
 		} else {
 			this.proprietes = proprietes;
 		}
@@ -56,9 +77,8 @@ public class Colonne {
 		if (this.sql == null) {
 			sql = new StringBuilder();
 			sql.append(" " + nom + " " + type);
-			for (int i = 0; i < proprietes.length; i++) {
-				sql.append(" " + proprietes[i]);
-
+			for (int i = 0; i < proprietes.size(); i++) {
+				sql.append(" " + proprietes.get(i).getPropriete());
 			}
 			sql.append(",");
 		}
@@ -81,13 +101,13 @@ public class Colonne {
 
 			Colonne compare = (Colonne) obj;
 			if (compare.getNom().equals(this.getNom()) && this.primaire == compare.primaire
-					&& this.type.equals(compare.type) && this.proprietes.length == compare.proprietes.length) {
-				ArrayList<String> proprietes = (ArrayList<String>) Arrays.asList(compare.proprietes);
-				if (proprietes.containsAll(Arrays.asList(this.proprietes))) {
+					&& this.type.equals(compare.type) && this.proprietes.size() == compare.proprietes.size()) {
+
+				if (proprietes.containsAll(this.proprietes)) {
 					egal = true;
 				}
 			}
-			
+
 		}
 		return egal;
 	}
@@ -100,7 +120,7 @@ public class Colonne {
 		return type;
 	}
 
-	public String[] getProprietes() {
+	public ArrayList<Proprietes> getProprietes() {
 		return proprietes;
 	}
 
