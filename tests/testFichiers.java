@@ -2,7 +2,8 @@ package tests;
 
 import java.io.File;
 
-import modeles.fichiers.FichierFilm;
+import org.drfoliberg.films3000.modeles.fichiers.FichierFilm;
+
 
 public class testFichiers {
 

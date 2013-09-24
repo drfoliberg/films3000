@@ -1,6 +1,6 @@
 package tests;
 
-import gestionDonnees.donnees.baseDonnees.h2.H2;
+import org.drfoliberg.films3000.gestionDonnees.donnees.baseDonnees.h2.H2;
 
 public class testH2 {
 

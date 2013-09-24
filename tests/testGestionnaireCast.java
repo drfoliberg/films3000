@@ -3,10 +3,10 @@ package tests;
 import java.io.File;
 import java.util.ArrayList;
 
-import modeles.films.personne.Role;
+import org.drfoliberg.films3000.gestionDonnees.config.Departements;
+import org.drfoliberg.films3000.gestionDonnees.config.GestionnaireCast;
+import org.drfoliberg.films3000.modeles.films.personne.Role;
 
-import gestionDonnees.config.Departements;
-import gestionDonnees.config.GestionnaireCast;
 
 public class testGestionnaireCast {
 
