@@ -13,7 +13,7 @@ public class FichierTVTheorique extends Fichier {
 	private String serie;
 
 	public FichierTVTheorique(int id_fichier, int id_api, File fichierDisque) {
-		super(id_fichier, id_api, fichierDisque);
+		super(fichierDisque);
 		RenommeurTvTheorique renommeur = new RenommeurTvTheorique(fichierDisque);
 		this.saison = renommeur.getSaison();
 		this.episode = renommeur.getEpisode();
@@ -22,7 +22,7 @@ public class FichierTVTheorique extends Fichier {
 
 	public FichierTVTheorique(int id_fichier, int id_api, int duree_fichier, long taille, String format,
 			String nomFichier, File fichierDisque, ArrayList<Stream> streams, int saison, int episode, String serie) {
-		super(id_fichier, id_api, duree_fichier, taille, format, nomFichier, fichierDisque, streams);
+		super(fichierDisque);
 		this.saison = saison;
 		this.episode = episode;
 		this.serie = serie;

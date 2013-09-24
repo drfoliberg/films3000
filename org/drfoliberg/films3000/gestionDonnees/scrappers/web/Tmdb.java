@@ -75,7 +75,7 @@ public class Tmdb implements WebScrapper {
 			for (int i = 0; i < filmsRecherche.length; i++) {
 				// TODO faire un object FilmRecherche ou changer le modèle de
 				// Film actuel pour faciliter la recherche
-				// filmsRecherche[i] = new Film(listeRecherche.get(i));
+				filmsRecherche[i] = new Film(listeRecherche.get(i));
 			}
 
 		} catch (MovieDbException e) {

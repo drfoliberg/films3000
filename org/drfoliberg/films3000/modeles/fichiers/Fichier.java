@@ -5,86 +5,61 @@ import java.util.ArrayList;
 
 import org.drfoliberg.films3000.modeles.fichiers.stream.Stream;
 
-
 public class Fichier {
 
-	private int id_fichier;
-	private int id_api;
-	private int duree_fichier;
-	private long taille;
+	private int fileHash;
+	private int apiID;
+	private int lengthSeconds;
+	private long length;
 
 	private String format;
-	private String nomFichier;
-	private File fichierDisque;
 	private ArrayList<Stream> streams;
+	private String path;
+	private String fileName;
 
-	/**
-	 * 
-	 * @param id_fichier
-	 * @param id_api
-	 * @param fichierDisque
-	 */
-	public Fichier(int id_fichier, int id_api, File fichierDisque) {
-		this.id_fichier = id_fichier;
-		this.id_api = id_api;
-		this.fichierDisque = fichierDisque;
-		this.taille = fichierDisque.length();
-
+	public Fichier(File f) {
+		this.length = f.length();
+		this.path = f.getPath();
+		this.fileName = f.getName();
+		this.format = "Unknown";
+		this.streams = new ArrayList<>();
 	}
 
-	/**
-	 * 
-	 * @param id_fichier
-	 * @param id_api
-	 * @param duree_fichier
-	 * @param taille
-	 * @param format
-	 * @param nomFichier
-	 * @param fichierDisque
-	 * @param streams
-	 */
-	public Fichier(int id_fichier, int id_api, int duree_fichier, long taille, String format, String nomFichier,
-			File fichierDisque, ArrayList<Stream> streams) {
-		this.id_fichier = id_fichier;
-		this.id_api = id_api;
-		this.duree_fichier = duree_fichier;
-		this.taille = taille;
-		this.format = format;
-		this.nomFichier = nomFichier;
-		this.fichierDisque = fichierDisque;
-		this.streams = streams;
+	private static long getHash(File f) {
+		//TODO implement hashing
+		return 0;
 	}
 
-	public int getId_fichier() {
-		return id_fichier;
+	public int getFileHash() {
+		return fileHash;
 	}
 
-	public void setId_fichier(int id_fichier) {
-		this.id_fichier = id_fichier;
+	public void setFileHash(int fileHash) {
+		this.fileHash = fileHash;
 	}
 
-	public int getId_api() {
-		return id_api;
+	public int getApiID() {
+		return apiID;
 	}
 
-	public void setId_api(int id_api) {
-		this.id_api = id_api;
+	public void setApiID(int apiID) {
+		this.apiID = apiID;
 	}
 
-	public int getDuree_fichier() {
-		return duree_fichier;
+	public int getLengthSeconds() {
+		return lengthSeconds;
 	}
 
-	public void setDuree_fichier(int duree_fichier) {
-		this.duree_fichier = duree_fichier;
+	public void setLengthSeconds(int lengthSeconds) {
+		this.lengthSeconds = lengthSeconds;
 	}
 
-	public long getTaille() {
-		return taille;
+	public long getLength() {
+		return length;
 	}
 
-	public void setTaille(long taille) {
-		this.taille = taille;
+	public void setLength(long length) {
+		this.length = length;
 	}
 
 	public String getFormat() {
@@ -95,22 +70,6 @@ public class Fichier {
 		this.format = format;
 	}
 
-	public String getNomFichier() {
-		return nomFichier;
-	}
-
-	public void setNomFichier(String nomFichier) {
-		this.nomFichier = nomFichier;
-	}
-
-	public File getFichierDisque() {
-		return fichierDisque;
-	}
-
-	public void setFichierDisque(File fichierDisque) {
-		this.fichierDisque = fichierDisque;
-	}
-
 	public ArrayList<Stream> getStreams() {
 		return streams;
 	}
@@ -119,4 +78,20 @@ public class Fichier {
 		this.streams = streams;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
 }

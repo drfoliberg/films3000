@@ -1,10 +1,6 @@
 package org.drfoliberg.films3000.modeles.fichiers;
 
 import java.io.File;
-import java.util.ArrayList;
-
-import org.drfoliberg.films3000.modeles.fichiers.stream.Stream;
-
 
 /**
  * 
@@ -15,15 +11,13 @@ public class FichierFilm extends Fichier {
 	private String titre;
 	private int annee;
 
-	public FichierFilm(int id_fichier, int id_api, int duree_fichier, long taille, String format, String nomFichier,
-			File fichierDisque, ArrayList<Stream> streams) {
-		super(id_fichier, id_api, duree_fichier, taille, format, nomFichier, fichierDisque, streams);
-
-	}
-
-	public FichierFilm(int id_fichier, int id_api, File fichierDisque) {
-		super(id_fichier, id_api, fichierDisque);
-		RenomeurFilm r = new RenomeurFilm(getFichierDisque());
+	/**
+	 * Base contructor for the FileMovie object
+	 * @param fichierDisque
+	 */
+	public FichierFilm(File fichierDisque) {
+		super(fichierDisque);
+		RenomeurFilm r = new RenomeurFilm(fichierDisque);
 		titre = r.getTitre();
 		annee = r.getAnnee();
 	}

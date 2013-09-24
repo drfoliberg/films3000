@@ -2,7 +2,7 @@ films3000
 =========
 Films3000 est un programme de gestion automatique de fichiers de films, se basant sur le répertoire de Tmdb ainsi que sur une partie de Imdb. Une analyse des méta-infos des fichiers est aussi faites avec le programme mediainfo.
 
-Le programme peut gèrer plusieurs fichiers pour un film et vérifier à quelle version du film un fichier spécifique appartient. Il affichera pour chaque fichier d'un film sélectionné, les méta-infos vidéos et audio, mais surtout la langue des pistes ainsi que les sous-titres disponibles. Une fonctionnalité d'auto-téléchargement de sous-titres à partir d'une source internet sera futurement disponible.
+Le programme peut gérer plusieurs fichiers pour un film et vérifier à quelle version du film un fichier spécifique appartient. Il affichera pour chaque fichier d'un film sélectionné, les méta-infos vidéos et audio, mais surtout la langue des pistes ainsi que les sous-titres disponibles. Une fonctionnalité d'auto-téléchargement de sous-titres à partir d'une source internet sera possiblement implémentée.
 
 Le programme est testé dans les plus récents environnements Windows et Linux. 
 Aucun test n'est directement fait sur les système Mac pour l'instant.
@@ -20,3 +20,13 @@ Sur le système d'exécution
 * Jackson http://jackson.codehaus.org/
 * Jna https://github.com/twall/jna
 * Jsoup http://jsoup.org/
+
+À faire
+=========
+* Implémenter un algorithme rapide de hashage pour les fichiers
+* Gestionnaire de fichiers qui cherche les fichiers disparus avec le hash
+* Amélioration de la gestion de la librairie MediaInfo
+* Implémentation des traitements sql
+* Gestionnaire de films
+* Interface graphique
+* Gestionnaire d'images avec cache

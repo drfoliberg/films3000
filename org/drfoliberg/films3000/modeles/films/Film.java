@@ -41,7 +41,6 @@ public class Film {
 		this.personnes = new ArrayList<Personne>();
 	}
 
-	@Deprecated
 	public Film(MovieDb recherche) {
 		this.personnes = new ArrayList<Personne>();
 		this.titre = recherche.getTitle();
