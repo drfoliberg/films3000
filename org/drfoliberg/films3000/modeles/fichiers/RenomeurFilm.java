@@ -51,7 +51,6 @@ public class RenomeurFilm extends Renommeur{
 		trouverTitre();
 		if(!dateEstValide()){
 			this.date = "1896";
-			System.out.println("Problème avec la date");
 		}
 	}
 	
