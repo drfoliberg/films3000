@@ -3,8 +3,8 @@ package tests;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.drfoliberg.films3000.gestionDonnees.scrappers.local.mediainfo.MediaInfoAnalyse;
-import org.drfoliberg.films3000.modeles.fichiers.stream.Stream;
+import org.drfoliberg.films3000.data.scrappers.local.mediainfo.MediaInfoAnalyse;
+import org.drfoliberg.films3000.models.file.stream.Stream;
 
 
 public class TestMediaInfo {

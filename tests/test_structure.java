@@ -1,11 +1,11 @@
 package tests;
 
-import org.drfoliberg.films3000.gestionDonnees.donnees.baseDonnees.structure.Colonne;
-import org.drfoliberg.films3000.gestionDonnees.donnees.baseDonnees.structure.Structure;
-import org.drfoliberg.films3000.gestionDonnees.donnees.baseDonnees.structure.Table;
-import org.drfoliberg.films3000.gestionDonnees.donnees.baseDonnees.structure.constantes.Proprietes;
-import org.drfoliberg.films3000.gestionDonnees.donnees.baseDonnees.structure.types.Char;
-import org.drfoliberg.films3000.gestionDonnees.donnees.baseDonnees.structure.types.VarChar;
+import org.drfoliberg.films3000.data.database.structure.Colonne;
+import org.drfoliberg.films3000.data.database.structure.Structure;
+import org.drfoliberg.films3000.data.database.structure.Table;
+import org.drfoliberg.films3000.data.database.structure.constantes.Proprietes;
+import org.drfoliberg.films3000.data.database.structure.types.Char;
+import org.drfoliberg.films3000.data.database.structure.types.VarChar;
 
 public class test_structure {
 

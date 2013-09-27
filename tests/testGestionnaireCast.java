@@ -3,9 +3,9 @@ package tests;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.drfoliberg.films3000.gestionDonnees.config.Departements;
-import org.drfoliberg.films3000.gestionDonnees.config.GestionnaireCast;
-import org.drfoliberg.films3000.modeles.films.personne.Role;
+import org.drfoliberg.films3000.data.config.Departements;
+import org.drfoliberg.films3000.managers.GestionnaireCast;
+import org.drfoliberg.films3000.models.person.Job;
 
 
 public class testGestionnaireCast {
@@ -20,16 +20,16 @@ public class testGestionnaireCast {
 
 	public static void testerGenererDefault() {
 		GestionnaireCast gc = new GestionnaireCast();
-		ArrayList<Role> roles = new ArrayList<>();
+		ArrayList<Job> roles = new ArrayList<>();
 		for (Departements d : Departements.values()) {
-			Role r;
+			Job r;
 			for (String s : d.getJobsConserver()) {
-				r = new Role(d.getNoDep(), s);
+				r = new Job(d.getNoDep(), s);
 				roles.add(r);
-				gc.ajouterRole(r);
+				gc.addJob(r);
 			}
 		}
-		gc.enregisterListe(new File("default.ser"));
+		gc.saveList(new File("default.ser"));
 	}
 
 	public static void testerGetListeDefault() {
