@@ -10,14 +10,15 @@ import org.drfoliberg.films3000.data.database.BaseDonnees;
 import org.drfoliberg.films3000.data.database.structure.Colonne;
 import org.drfoliberg.films3000.data.database.structure.Structure;
 import org.drfoliberg.films3000.data.database.structure.Table;
-
+import org.drfoliberg.films3000.models.file.Snapshot;
 
 public class H2 extends BaseDonnees {
 
 	@Override
 	public boolean open() {
 		try {
-			connection = DriverManager.getConnection("jdbc:h2:" + nom, "sa", "");
+			connection = DriverManager
+					.getConnection("jdbc:h2:" + nom, "sa", "");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,8 +42,9 @@ public class H2 extends BaseDonnees {
 		boolean existe = false;
 		ArrayList<String> tables = new ArrayList<>();
 		try {
-			java.sql.PreparedStatement stmt = connection.prepareStatement("SELECT TABLE_NAME FROM "
-					+ "INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PUBLIC' ORDER BY TABLE_NAME");
+			java.sql.PreparedStatement stmt = connection
+					.prepareStatement("SELECT TABLE_NAME FROM "
+							+ "INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PUBLIC' ORDER BY TABLE_NAME");
 			ResultSet resultats = stmt.executeQuery();
 			while (resultats.next()) {
 				tables.add(resultats.getString("table_name"));
@@ -90,6 +92,18 @@ public class H2 extends BaseDonnees {
 
 	@Override
 	public Table getTable(String nomTable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateSnapshot(Snapshot newSnapshot) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Snapshot getLastSnapshot() {
 		// TODO Auto-generated method stub
 		return null;
 	}

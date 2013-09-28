@@ -1,27 +1,25 @@
 package org.drfoliberg.films3000.data.database;
 
-import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.drfoliberg.films3000.data.database.structure.Colonne;
 import org.drfoliberg.films3000.data.database.structure.Structure;
 import org.drfoliberg.films3000.data.database.structure.Table;
-import org.drfoliberg.films3000.managers.GestionFichiersFilm;
 import org.drfoliberg.films3000.managers.GestionFilm;
-import org.drfoliberg.films3000.models.file.MovieFile;
-import org.drfoliberg.films3000.models.image.Poster;
+import org.drfoliberg.films3000.managers.SnapshotManager;
 import org.drfoliberg.films3000.models.image.Backdrop;
 import org.drfoliberg.films3000.models.image.Image;
+import org.drfoliberg.films3000.models.image.Poster;
+import org.drfoliberg.films3000.models.movie.Country;
 import org.drfoliberg.films3000.models.movie.Duration;
 import org.drfoliberg.films3000.models.movie.Movie;
 import org.drfoliberg.films3000.models.movie.MovieGenre;
-import org.drfoliberg.films3000.models.movie.Country;
 import org.drfoliberg.films3000.models.person.BasePerson;
 
+public abstract class BaseDonnees extends SnapshotManager implements
+		GestionFilm {
 
-public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm {
-	
 	protected String nom;
 	protected String url;
 	protected Connection connection;
@@ -42,8 +40,6 @@ public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm {
 
 	public abstract void creerBaseDonnees();
 
-	
-	
 	public String getNom() {
 		return nom;
 	}
@@ -206,36 +202,6 @@ public abstract class BaseDonnees implements GestionFilm, GestionFichiersFilm {
 	public BasePerson getPersonneBase(int id) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public ArrayList<MovieFile> getFichiers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void supprimerFichierFilm(int idFichier) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public ArrayList<MovieFile> getFichierFilm(File fichier) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void supprimerFichierFilm(MovieFile fichier) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void ajouterFichierFilm(MovieFile fichier) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

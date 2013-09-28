@@ -12,7 +12,7 @@ public class MovieFile extends BaseFile {
 	private int annee;
 
 	/**
-	 * Base contructor for the FileMovie object
+	 * Base constructor for the FileMovie object
 	 * @param fichierDisque
 	 */
 	public MovieFile(File fichierDisque) {
