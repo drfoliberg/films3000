@@ -40,6 +40,7 @@ public class BaseFile {
 	}
 
 	public long getPieceSum(int pieceNum) throws IOException {
+		//TODO add cached values
 		if (this.pieceSums.length < pieceNum || this.pieceSums[pieceNum] == 0) {
 			CRC32 crc = new CRC32();
 			crc.update(this.getPiece(pieceNum));
@@ -78,6 +79,24 @@ public class BaseFile {
 		}
 		this.raf.close();
 		return crc.getValue();
+	}
+
+	public boolean equalsByLength(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof BaseFile)) {
+			return false;
+		}
+		boolean equal = false;
+		BaseFile f = (BaseFile) o;
+
+		if (f.getLength() == this.length && f.getFileName().equals(this.getFileName())) {
+			equal = true;
+		}
+
+		return equal;
+
 	}
 
 	@Override
