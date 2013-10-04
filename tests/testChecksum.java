@@ -34,7 +34,7 @@ public class testChecksum {
 		testChecksum.explorer(new File("/tank/ecole/Films/"));
 		for (File f : fichiersCourants) {
 			MovieFile ficFilm = new MovieFile(f);
-			long h = ficFilm.getCheckSum();
+			long h = ficFilm.getFileSum();
 			hashes.add(h);
 			System.out.println(ficFilm.getTitre() + " " + ficFilm.getPath() + " " + h);
 		

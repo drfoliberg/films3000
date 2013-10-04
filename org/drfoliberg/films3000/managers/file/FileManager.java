@@ -1,18 +1,17 @@
 package org.drfoliberg.films3000.managers.file;
 
-import java.io.File;
 import java.util.ArrayList;
 
+import org.drfoliberg.films3000.managers.SnapshotManager;
 import org.drfoliberg.films3000.models.file.BaseFile;
-import org.drfoliberg.films3000.models.file.MovieFile;
 import org.drfoliberg.films3000.models.file.Snapshot;
 
 public class FileManager {
 
+	// TODO Change how snapshots are handle. All snapshots will come from the
+	// snapshotManager
 	private Snapshot snapshot;
-	private ArrayList<BaseFile> currentFiles;
-	private ArrayList<BaseFile> newFiles;
-	private ArrayList<BaseFile> deletedFiles;
+	private SnapshotManager snapshotManager;
 
 	/**
 	 * Finds new files, renamed files and deleted files
@@ -20,85 +19,57 @@ public class FileManager {
 	 * @param roots
 	 *            The root directories to look in
 	 */
-	public void update(String[] roots) {
-		if (this.snapshot != null) {
-			getCurrentListing(roots);
-			for (BaseFile f : currentFiles) {
-				if (!snapshot.containsNameLength(f)) {
-					if (snapshot.containsSum(f)) {
-						//TODO
+	public boolean update(String[] roots) {
+		if (snapshot == null) {
+			return false;
+		}
+
+		Snapshot newSnapshot = new Snapshot();
+		newSnapshot.getCurrentSnapshot(roots);
+
+		ArrayList<BaseFile> lostFiles = snapshot.getFiles();
+		ArrayList<BaseFile> newFiles = new ArrayList<>();
+		ArrayList<BaseFile> renamedFiles = new ArrayList<>();
+		ArrayList<BaseFile> changedFiles = new ArrayList<>();
+		ArrayList<BaseFile> unchangedFiles = new ArrayList<>();
+
+		for (BaseFile f : newSnapshot.getFiles()) {
+
+			if (!snapshot.containsNameLength(f)) {
+				// new , modified or renamed file
+				if (snapshot.containsSum(f)) {
+					// modified or renamed file
+					BaseFile old = snapshot.getFile(f.getFileSum());
+					if (old.getFileName().equals(f.getFileName()) && old.getPath().equals(f.getPath())) {
+						// modified content
+						// TODO have mediainfo check back the streams of the
+						// file
+						changedFiles.add(f);
 					} else {
-						this.newFiles.add(f);
+						// renamed file
+						// TODO change the file in the base with the sum as the
+						// key
+						renamedFiles.add(f);
 					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Method that updates this.currentFiles
-	 * 
-	 * @param roots
-	 *            The root directories to look in
-	 */
-	public void getCurrentListing(String[] roots) {
-		for (String r : roots) {
-			File f = new File(r);
-			if (f.isDirectory() && f.canRead()) {
-				explore(f);
-			}
-		}
-	}
-
-	/**
-	 * Recursive method to find files in a directory
-	 * 
-	 * @param f
-	 *            The directory to look in
-	 */
-	public void explore(File f) {
-		if (f.isDirectory()) {
-			File[] files = f.listFiles();
-			for (File file : files) {
-				if (file.isDirectory()) {
-					explore(file);
 				} else {
-					this.currentFiles.add(new MovieFile(file));
+					// this is a new file
+					// TODO scan this file for movie
+					newFiles.add(f);
 				}
+			} else {
+				// file is unchanged
+				unchangedFiles.add(f);
 			}
 		}
-	}
 
-	public ArrayList<BaseFile> findRenamedFiles() {
-		ArrayList<BaseFile> renamed = new ArrayList<>();
-		for (BaseFile mf : this.deletedFiles) {
-			if (newFiles.contains(mf)) {
-				renamed.add(mf);
-				newFiles.remove(mf);
-				deletedFiles.remove(mf);
+		for (BaseFile f : snapshot.getFiles()) {
+			if (!newSnapshot.containsSum(f)) {
+				lostFiles.add(f);
+				// TODO notify of a lost file
+				// TODO better "lost file detection"
 			}
 		}
-		return renamed;
-	}
-
-	public ArrayList<MovieFile> getFiles() {
-		return null;
-	}
-
-	public void removeFile(int idFichier) {
-
-	}
-
-	public ArrayList<MovieFile> getMovieFile(File fichier) {
-		return null;
-	}
-
-	public void removeMovieFile(MovieFile fichier) {
-
-	}
-
-	public void addMovieFile(MovieFile fichier) {
-
+		return true;
 	}
 
 }
