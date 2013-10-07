@@ -97,12 +97,6 @@ public class H2 extends BaseDonnees {
 	}
 
 	@Override
-	public boolean updateSnapshot(Snapshot newSnapshot) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public Snapshot getLastSnapshot() {
 		// TODO Auto-generated method stub
 		return null;

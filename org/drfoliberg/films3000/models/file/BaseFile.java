@@ -17,12 +17,11 @@ import org.drfoliberg.films3000.models.file.stream.Stream;
  */
 public class BaseFile {
 
-	private final static int pieceSize = 32 * 1024;
-	private final static long skipSize = 256 * 1024 * 1024 - pieceSize;
+	private final static int PIECE_SIZE = 32 * 1024;
+	private final static long SKIP_SIZE = 256 * 1024 * 1024 - PIECE_SIZE;
 
 	private int apiID;
 	private int lengthSeconds;
-	private String format;
 	private ArrayList<Stream> streams;
 	private String path;
 	private String fileName;
@@ -30,7 +29,7 @@ public class BaseFile {
 	private long fileSum;
 	private long length;
 	private long[] pieceSums;
-	private long pieces;
+	private int piecesQty;
 
 	private RandomAccessFile raf;
 	private File file;
@@ -46,10 +45,9 @@ public class BaseFile {
 		this.length = f.length();
 		this.path = f.getPath();
 		this.fileName = f.getName();
-		this.format = "Unknown";
 		this.streams = new ArrayList<>();
-		this.pieces = this.file.length() / (pieceSize + skipSize);
-		this.pieceSums = new long[(int) this.pieces];
+		this.piecesQty = (int) (this.file.length() / (PIECE_SIZE + SKIP_SIZE));
+		this.pieceSums = new long[this.piecesQty];
 	}
 
 	/**
@@ -94,16 +92,21 @@ public class BaseFile {
 		if (this.raf == null) {
 			raf = new RandomAccessFile(this.file, "r");
 		}
-		long pos = (skipSize + pieceSize) * pieceNum;
+		long pos = (SKIP_SIZE + PIECE_SIZE) * pieceNum;
+
 		if (pos < 0) {
 			return new byte[0];
 		}
 		if (pos > this.length) {
-			pos = this.length - pieceSize;
+			pos = this.length - PIECE_SIZE;
+		}
+
+		if (PIECE_SIZE > this.length) {
+			return new byte[0];
 		}
 
 		this.raf.seek(pos);
-		byte[] piece = new byte[pieceSize];
+		byte[] piece = new byte[PIECE_SIZE];
 		raf.read(piece);
 		return piece;
 
@@ -120,7 +123,7 @@ public class BaseFile {
 		try {
 			CRC32 crc = new CRC32();
 			int i = 0;
-			while (i++ != this.pieces) {
+			while (i++ != this.piecesQty) {
 				crc.update(this.getPiece(i));
 			}
 			if (this.raf != null) {
@@ -135,15 +138,28 @@ public class BaseFile {
 		return this.fileSum;
 	}
 
+	public boolean equalsNamePath(BaseFile f) {
+		if (f == null) {
+			return false;
+		}
+		boolean equal = false;
+
+		if (f.getFileName().equals(this.getFileName()) && f.getPath().equals(this.getPath())) {
+			equal = true;
+		}
+
+		return equal;
+	}
+
 	/**
-	 * Checks if file equals another with only the filename and length for
+	 * Checks if file equals another with only the filename, path and length for
 	 * minimal disk access.
 	 * 
 	 * @param o
 	 *            BaseFile to compare
-	 * @return if files have same name and length
+	 * @return if files have same name, path and length in bytes
 	 */
-	public boolean equalsLength(Object o) {
+	public boolean equalsNameLength(Object o) {
 		if (o == null) {
 			return false;
 		}
@@ -153,7 +169,8 @@ public class BaseFile {
 		boolean equal = false;
 		BaseFile f = (BaseFile) o;
 
-		if (f.getLength() == this.length && f.getFileName().equals(this.getFileName())) {
+		if (f.getLength() == this.length && f.getFileName().equals(this.getFileName())
+				&& f.getPath().equals(this.getPath())) {
 			equal = true;
 		}
 
@@ -174,7 +191,7 @@ public class BaseFile {
 			boolean equal = true;
 			int i = 0;
 			try {
-				while (equal && i != this.pieces) {
+				while (equal && i != this.piecesQty) {
 					if (this.getPieceSum(i) != bf.getPieceSum(i)) {
 						equal = false;
 					}
@@ -239,14 +256,6 @@ public class BaseFile {
 		this.length = length;
 	}
 
-	public String getFormat() {
-		return format;
-	}
-
-	public void setFormat(String format) {
-		this.format = format;
-	}
-
 	public ArrayList<Stream> getStreams() {
 		return streams;
 	}
@@ -279,12 +288,12 @@ public class BaseFile {
 		this.pieceSums = pieceSums;
 	}
 
-	public long getPieces() {
-		return pieces;
+	public long getPiecesQty() {
+		return piecesQty;
 	}
 
-	public void setPieces(long pieces) {
-		this.pieces = pieces;
+	public void setPiecesQty(int piecesQty) {
+		this.piecesQty = piecesQty;
 	}
 
 	public File getFile() {

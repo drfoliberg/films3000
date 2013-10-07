@@ -5,70 +5,85 @@ import java.util.ArrayList;
 import org.drfoliberg.films3000.managers.SnapshotManager;
 import org.drfoliberg.films3000.models.file.BaseFile;
 import org.drfoliberg.films3000.models.file.Snapshot;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileManager {
 
-	// TODO Change how snapshots are handle. All snapshots will come from the
-	// snapshotManager
-	private Snapshot snapshot;
+	// TODO Implement better file tree analysis to check for the last modified
+	// date. Will be compared to the snapshot's unix timestamp.
+
 	private SnapshotManager snapshotManager;
+	private static final Logger LOG = LoggerFactory.getLogger(FileManager.class);
+
+	private ArrayList<BaseFile> lostFiles = new ArrayList<>();
+	private ArrayList<BaseFile> newFiles = new ArrayList<>();
+	private ArrayList<BaseFile> renamedFiles = new ArrayList<>();
+	private ArrayList<BaseFile> changedFiles = new ArrayList<>();
+
+	public FileManager() {
+		this.snapshotManager = new SnapshotManager();
+		this.snapshotManager.getLastSnapshot();
+	}
+
+	/**
+	 * Clears all data from last analysis.
+	 */
+	public void clear() {
+		this.lostFiles = new ArrayList<>();
+		this.newFiles = new ArrayList<>();
+		this.renamedFiles = new ArrayList<>();
+		this.changedFiles = new ArrayList<>();
+	}
 
 	/**
 	 * Finds new files, renamed files and deleted files
 	 * 
 	 * @param roots
 	 *            The root directories to look in
+	 * @return True if update completed without errors.
 	 */
 	public boolean update(String[] roots) {
-		if (snapshot == null) {
+
+		this.clear();
+		if (snapshotManager.getLastSnapshot() == null) {
 			return false;
 		}
 
 		Snapshot newSnapshot = new Snapshot();
+		Snapshot lastSnapshot = snapshotManager.getLastSnapshot();
+
 		newSnapshot.getCurrentSnapshot(roots);
+		lostFiles = lastSnapshot.getFiles();
 
-		ArrayList<BaseFile> lostFiles = snapshot.getFiles();
-		ArrayList<BaseFile> newFiles = new ArrayList<>();
-		ArrayList<BaseFile> renamedFiles = new ArrayList<>();
-		ArrayList<BaseFile> changedFiles = new ArrayList<>();
-		ArrayList<BaseFile> unchangedFiles = new ArrayList<>();
-
-		for (BaseFile f : newSnapshot.getFiles()) {
-
-			if (!snapshot.containsNameLength(f)) {
-				// new , modified or renamed file
-				if (snapshot.containsSum(f)) {
-					// modified or renamed file
-					BaseFile old = snapshot.getFile(f.getFileSum());
-					if (old.getFileName().equals(f.getFileName()) && old.getPath().equals(f.getPath())) {
-						// modified content
-						// TODO have mediainfo check back the streams of the
-						// file
-						changedFiles.add(f);
-					} else {
-						// renamed file
-						// TODO change the file in the base with the sum as the
-						// key
-						renamedFiles.add(f);
-					}
-				} else {
-					// this is a new file
-					// TODO scan this file for movie
-					newFiles.add(f);
-				}
-			} else {
-				// file is unchanged
-				unchangedFiles.add(f);
-			}
-		}
-
-		for (BaseFile f : snapshot.getFiles()) {
-			if (!newSnapshot.containsSum(f)) {
+		// Get all new files with a path and length check
+		for (BaseFile f : lastSnapshot.getFiles()) {
+			if (!newSnapshot.containsNameLength(f)) {
 				lostFiles.add(f);
-				// TODO notify of a lost file
-				// TODO better "lost file detection"
 			}
 		}
+		// Get all lost files with a path and length check
+		for (BaseFile f : newSnapshot.getFiles()) {
+			if (!lastSnapshot.containsNameLength(f)) {
+				newFiles.add(f);
+			}
+		}
+
+		// Get renamed files with a hash check and changed files
+		for (BaseFile oldFile : lostFiles) {
+			if (newSnapshot.containsSum(oldFile)) {
+				BaseFile newFile = newSnapshot.getFile(oldFile.getFileSum());
+				renamedFiles.add(newFile);
+				lostFiles.remove(oldFile);
+				LOG.info("File " + oldFile.getFileName() + " was renamed as " + newFile.getFileName()
+						+ ". Found with the common hash " + newFile.getFileSum() + ".");
+			} else if (newSnapshot.containsPathName(oldFile)) {
+				BaseFile match = newSnapshot.getFile(oldFile.getPath(), oldFile.getFileName());
+				changedFiles.add(match);
+			}
+		}
+		snapshotManager.commit(newSnapshot);
+
 		return true;
 	}
 
